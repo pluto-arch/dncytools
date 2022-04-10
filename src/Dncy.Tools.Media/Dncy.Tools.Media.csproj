@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2.0;netstandard2.1;net40;net45;net451;net452;net46;net461;net50;net60</TargetFrameworks>
+	  <Nullable>enable</Nullable>
+	  <LangVersion>latest</LangVersion>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Description>媒体素材的工具</Description>
+	  <Company>dotnetydd</Company>
+	  <Authors>dotnetydd</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+  </ItemGroup>
+
+</Project>

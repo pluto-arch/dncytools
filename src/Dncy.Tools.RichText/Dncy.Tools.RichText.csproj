@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2.0;netstandard2.1;net46;net461;net462;net50;net60</TargetFrameworks>
+	  <Nullable>enable</Nullable>
+	  <LangVersion>latest</LangVersion>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Description>富文本的工具包</Description>
+	  <Company>dotnetydd</Company>
+	  <Authors>dotnetydd</Authors>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net50'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+    <PackageReference Include="HtmlSanitizer">
+      <Version>7.1.488</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+  </ItemGroup>
+
+</Project>

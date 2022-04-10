@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net5.0;net40;net45;net451;net452;net46;net461;net462</TargetFrameworks>
+		<TargetFrameworks>net6.0;net5.0;net45;net451;net452;net46;net461;net462</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<LangVersion>latest</LangVersion>
@@ -15,7 +15,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\dncy.linq\Dncy.Collection.Generic.csproj" />
+		<ProjectReference Include="..\..\src\dncy.linq\Dncy.Tools.Collection.Generic.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.Security\Dncy.Tools.Security.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.SnowFlake\Dncy.Tools.SnowFlake.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net462' ">
+		<ProjectReference Include="..\..\src\Dncy.Tools.RichText\Dncy.Tools.RichText.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="test.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>
