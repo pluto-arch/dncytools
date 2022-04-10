@@ -15,9 +15,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\dncy.linq\Dncy.Tools.Collection.Generic.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Security\Dncy.Tools.Security.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.SnowFlake\Dncy.Tools.SnowFlake.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.Tools.Collection.Generic\Dncy.Tools.Collection.Generic.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
 	</ItemGroup>
 
