@@ -20,7 +20,7 @@ namespace NUnitTest
         public void Setup()
         {
             _html = $@"<a href='http://www.baidu.com'>hello</a><br /> <img src='https://gitee.com/zyllbx/static-files/raw/master/20210319/20210319053514017.png' />
-                <h1 style=\""background:url('https://gitee.com/zyllbx/static-files/raw/master/20210319/20210319053514017.png')\"">你好呀</h1>";
+                <h1 style=\""background:url('https://gitee.com/zyllbx/static-files/raw/master/20210319/20210319053514017.png')\"">你好呀</h1><script>alert('hello world')</script>";
         }
 
 
@@ -34,7 +34,13 @@ namespace NUnitTest
 
             var cc = _html.MatchHyperLinkHrefs();
 
-            
+
+            var xssRes = _html.HtmlStandardXssFilter();
+
+
+            var xssRes2 = _html.HtmlCustomXssFilter(new string[] {"a"}, new string[] {"href"});
+
+
 #endif
 
 #if NET462

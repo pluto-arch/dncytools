@@ -19,6 +19,7 @@
 		<ProjectReference Include="..\..\src\Dncy.SnowFlake\Dncy.Tools.SnowFlake.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Tools.Collection.Generic\Dncy.Tools.Collection.Generic.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.Tools.Media\Dncy.Tools.Media.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net462' ">
