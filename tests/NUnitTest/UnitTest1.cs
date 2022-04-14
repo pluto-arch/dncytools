@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 using Dncy.SnowFlake;
 using Dncy.Tools;
-using Dncy.Tools.Core.Extension;
 
 using NUnit.Framework;
 using NUnitTest.TestModels;
