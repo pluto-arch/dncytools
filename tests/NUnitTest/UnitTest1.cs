@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Dncy.SnowFlake;
 using Dncy.Tools;
+using Dncy.Tools.Core.Extension;
 
 using NUnit.Framework;
 using NUnitTest.TestModels;
@@ -85,6 +86,10 @@ namespace NUnitTest
         [Test]
         public void SnowFlake_Test()
         {
+            var id = SnowFlake.NewLongId;
+            var shortId = id.ToBinary(32);
+
+
             ConcurrentHashSet<long> longIds = new ConcurrentHashSet<long>();
             ConcurrentHashSet<string> uniqueIds = new ConcurrentHashSet<string>();
 
@@ -115,6 +120,7 @@ namespace NUnitTest
                 }
             });
 
+            
             Assert.IsTrue(longIds.Count == 40000);
             Assert.IsTrue(uniqueIds.Count == 40000);
 
