@@ -223,19 +223,6 @@ namespace Dncy.Tools.RichText
             return str.Replace("\r\n", "<br />").Replace("\n", "<br />");
         }
 
-        /// <summary>
-        /// 替换html字符
-        /// </summary>
-        /// <param name="strHtml">html</param>
-        public static string EncodeHtml(this string strHtml)
-        {
-            if (strHtml != "")
-            {
-                return strHtml.Replace(",", "&def").Replace("'", "&dot").Replace(";", "&dec");
-            }
-
-            return "";
-        }
 
 #endif
 

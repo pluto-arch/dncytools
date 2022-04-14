@@ -1,5 +1,7 @@
 ﻿#if NETFRAMEWORK
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using NUnit.Framework;
 using Dncy.Tools.Media;
@@ -43,8 +45,17 @@ namespace NUnitTest
         {
             var savePath = AppDomain.CurrentDomain.BaseDirectory + "\\ZoomAuto.png";
             using var ms = new FileStream(path, FileMode.Open);
-            ms.ZoomAuto(savePath, 1920, 1080, "hello","");
+            ms.ZoomAuto(savePath, 300, 280);
         }
+
+
+        [Test]
+        public void Test_Fluat()
+        {
+            var savePath = AppDomain.CurrentDomain.BaseDirectory + "\\Fluat.png";
+            using var image = Image.FromFile(path);
+            image.ZoomAuto(300, 280).AppendWatermark("hello", 80, 20, new Font("微软雅黑", 40)).Save(savePath,image.RawFormat);
+        }       
         
     }
 }

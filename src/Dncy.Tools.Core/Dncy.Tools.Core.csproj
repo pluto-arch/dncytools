@@ -5,12 +5,16 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Description>一些常用的扩展和工具</Description>
+		<Description>一些常用的基础扩展和工具，引入Dncy.Tools namespace即可</Description>
 		<Company>dotnetydd</Company>
 		<Authors>dotnetydd</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Objects\" />
 	</ItemGroup>
 </Project>

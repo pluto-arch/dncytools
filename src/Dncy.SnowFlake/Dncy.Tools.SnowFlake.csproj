@@ -5,7 +5,7 @@
 	  <Nullable>enable</Nullable>
 	  <LangVersion>latest</LangVersion>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <Description>雪花id生辰算法</Description>
+	  <Description>雪花id算法</Description>
 	  <Company>dotnetydd</Company>
 	  <Authors>dotnetydd</Authors>
   </PropertyGroup>

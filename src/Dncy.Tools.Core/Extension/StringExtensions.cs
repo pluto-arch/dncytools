@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Numerics;
 using System.Text.RegularExpressions;
-using Dncy.Tools;
 using System.Date;
 using System.Globalization;
 
@@ -480,5 +479,62 @@ namespace Dncy.Tools
 
 
         #endregion
+
+
+        /// <summary>
+        /// 字符串转int
+        /// </summary>
+        /// <param name="s">源字符串</param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns>int类型的数字</returns>
+        public static int ToInt32(this string s, int defaultValue = 0)
+        {
+            return s.TryConvertTo(defaultValue);
+        }
+
+        /// <summary>
+        /// 字符串转long
+        /// </summary>
+        /// <param name="s">源字符串</param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns>int类型的数字</returns>
+        public static long ToInt64(this string s, long defaultValue = 0)
+        {
+            return s.TryConvertTo(defaultValue);
+        }
+
+        /// <summary>
+        /// 字符串转double
+        /// </summary>
+        /// <param name="s">源字符串</param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns>double类型的数据</returns>
+        public static double ToDouble(this string s, double defaultValue = 0)
+        {
+            return s.TryConvertTo(defaultValue);
+        }
+
+        /// <summary>
+        /// 字符串转decimal
+        /// </summary>
+        /// <param name="s">源字符串</param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns>int类型的数字</returns>
+        public static decimal ToDecimal(this string s, decimal defaultValue = 0)
+        {
+            return s.TryConvertTo(defaultValue);
+        }
+
+        /// <summary>
+        /// 字符串转decimal
+        /// </summary>
+        /// <param name="s">源字符串</param>
+        /// <param name="round">小数位数</param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns>int类型的数字</returns>
+        public static decimal ToDecimal(this string s, int round, decimal defaultValue = 0)
+        {
+            return Math.Round(s.TryConvertTo(defaultValue), round);
+        }
     }
 }

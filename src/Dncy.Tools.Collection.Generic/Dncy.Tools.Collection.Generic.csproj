@@ -10,4 +10,12 @@
 		<Authors>dotnetydd</Authors>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+	</ItemGroup>
+
 </Project>

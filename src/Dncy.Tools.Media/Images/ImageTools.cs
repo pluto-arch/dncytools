@@ -276,9 +276,7 @@ namespace Dncy.Tools.Media
         /// <param name="savePath">缩略图存放地址</param>
         /// <param name="targetWidth">指定的最大宽度</param>
         /// <param name="targetHeight">指定的最大高度</param>
-        /// <param name="watermarkText">水印文字</param>
-        /// <param name="watermarkImage">水印图片路径</param>
-        public static void ZoomAuto(this Stream fromFile, string savePath, double targetWidth, double targetHeight, string watermarkText="", string watermarkImage="")
+        public static void ZoomAuto(this Stream fromFile, string savePath, double targetWidth, double targetHeight)
         {
             //创建目录
             string dir = Path.GetDirectoryName(savePath);
@@ -290,46 +288,6 @@ namespace Dncy.Tools.Media
             //原图宽高均小于模版，不作处理，直接保存
             if ((initImage.Width <= targetWidth) && (initImage.Height <= targetHeight))
             {
-                //文字水印
-                if (!string.IsNullOrEmpty(watermarkText))
-                {
-                    using var gWater = Graphics.FromImage(initImage);
-                    using Font fontWater = new Font("黑体", 10);
-                    using Brush brushWater = new SolidBrush(Color.White);
-                    gWater.DrawString(watermarkText, fontWater, brushWater, 10, 10);
-                }
-
-                //透明图片水印
-                if (!string.IsNullOrEmpty(watermarkImage))
-                {
-                    if (File.Exists(watermarkImage))
-                    {
-                        using var wrImage = Image.FromFile(watermarkImage);
-                        //水印绘制条件：原始图片宽高均大于或等于水印图片
-                        if ((initImage.Width >= wrImage.Width) && (initImage.Height >= wrImage.Height))
-                        {
-                            using Graphics gWater = Graphics.FromImage(initImage);
-                            using ImageAttributes imgAttributes = new ImageAttributes();
-                            ColorMap colorMap = new ColorMap();
-                            colorMap.OldColor = Color.FromArgb(255, 0, 255, 0);
-                            colorMap.NewColor = Color.FromArgb(0, 0, 0, 0);
-                            ColorMap[] remapTable = { colorMap };
-                            imgAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap);
-                            float[][] colorMatrixElements =
-                            {
-                                new[] {1.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, //透明度:0.5
-                                new[] {0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
-                            };
-                            ColorMatrix wmColorMatrix = new ColorMatrix(colorMatrixElements);
-                            imgAttributes.SetColorMatrix(wmColorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-                            gWater.DrawImage(wrImage, new Rectangle(initImage.Width - wrImage.Width, initImage.Height - wrImage.Height, wrImage.Width, wrImage.Height), 0, 0, wrImage.Width, wrImage.Height, GraphicsUnit.Pixel, imgAttributes);
-                        }
-                    }
-                }
-
                 //保存
                 initImage.Save(savePath, initImage.RawFormat);
             }
@@ -368,60 +326,13 @@ namespace Dncy.Tools.Media
                 using Image newImage = new Bitmap((int)newWidth, (int)newHeight);
                 //新建一个画板
                 using Graphics newG = Graphics.FromImage(newImage);
-
                 //设置质量
                 newG.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 newG.SmoothingMode = SmoothingMode.HighQuality;
-
                 //置背景色
                 newG.Clear(Color.White);
-
                 //画图
                 newG.DrawImage(initImage, new Rectangle(0, 0, newImage.Width, newImage.Height), new Rectangle(0, 0, initImage.Width, initImage.Height), GraphicsUnit.Pixel);
-
-                //文字水印
-                if (!string.IsNullOrEmpty(watermarkText))
-                {
-                    using var gWater = Graphics.FromImage(newImage);
-                    using Font fontWater = new Font("微软雅黑", 10);
-                    using Brush brushWater = new SolidBrush(Color.White);
-                    gWater.DrawString(watermarkText, fontWater, brushWater, 10, 10);
-                }
-
-                //透明图片水印
-                if (!string.IsNullOrEmpty(watermarkImage))
-                {
-                    if (File.Exists(watermarkImage))
-                    {
-                        using Image wrImage = Image.FromFile(watermarkImage);
-                        //水印绘制条件：原始图片宽高均大于或等于水印图片
-                        if ((newImage.Width >= wrImage.Width) && (newImage.Height >= wrImage.Height))
-                        {
-                            using Graphics gWater = Graphics.FromImage(newImage);
-                            using ImageAttributes imgAttributes = new ImageAttributes();
-                            ColorMap colorMap = new ColorMap
-                            {
-                                OldColor = Color.FromArgb(255, 0, 255, 0),
-                                NewColor = Color.FromArgb(0, 0, 0, 0)
-                            };
-                            ColorMap[] remapTable = { colorMap };
-                            imgAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap);
-
-                            float[][] colorMatrixElements =
-                            {
-                                new[] {1.0f, 0.0f, 0.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f},
-                                new[] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, //透明度:0.5
-                                new[] {0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
-                            };
-                            ColorMatrix wmColorMatrix = new ColorMatrix(colorMatrixElements);
-                            imgAttributes.SetColorMatrix(wmColorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-                            gWater.DrawImage(wrImage, new Rectangle(newImage.Width - wrImage.Width, newImage.Height - wrImage.Height, wrImage.Width, wrImage.Height), 0, 0, wrImage.Width, wrImage.Height, GraphicsUnit.Pixel, imgAttributes);
-                        }
-                    }
-                }
-
                 //保存缩略图
                 newImage.Save(savePath, initImage.RawFormat);
             }
@@ -1129,13 +1040,13 @@ namespace Dncy.Tools.Media
             }
                 
             //生成新图
-            using Image newImage = new Bitmap((int)newWidth, (int)newHeight);
+            Image newImage = new Bitmap((int)newWidth, (int)newHeight);
             using Graphics newG = Graphics.FromImage(newImage);
             newG.InterpolationMode = InterpolationMode.HighQualityBicubic;
             newG.SmoothingMode = SmoothingMode.HighQuality;
             newG.Clear(Color.White);
             newG.DrawImage(image, new Rectangle(0, 0, newImage.Width, newImage.Height), new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
-            return image;
+            return newImage;
         }
 
         /// <summary>
@@ -1158,7 +1069,6 @@ namespace Dncy.Tools.Media
                 return image;
             }
         }
-
 
         #endregion
 
