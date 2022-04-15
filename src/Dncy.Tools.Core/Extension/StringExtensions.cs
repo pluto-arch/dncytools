@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace Dncy.Tools
 {
-    public static class StringExtensions
+    public static partial class StringExtensions
     {
         /// <summary>
         /// 转换万以下整数

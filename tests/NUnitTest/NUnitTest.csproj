@@ -10,9 +10,10 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
 		<PackageReference Include="NUnit" Version="3.13.2" />
-		<PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
 		<PackageReference Include="coverlet.collector" Version="3.1.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
 	</ItemGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Dncy.Security\Dncy.Tools.Security.csproj" />
@@ -24,12 +25,73 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net462' ">
 		<ProjectReference Include="..\..\src\Dncy.Tools.RichText\Dncy.Tools.RichText.csproj" />
+		<ProjectReference Include="..\..\src\Dncy.Tools.LuceneNet\Dncy.Tools.LuceneNet.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="test.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net451'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+	  <PackageReference Include="Lucene.Net">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

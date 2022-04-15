@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net451;net452;net46;net461;net50;net60</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Lucene.Net 分词工具</Description>
+		<Company>dotnetydd</Company>
+		<Authors>dotnetydd</Authors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net451'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
+	    <Version>4.8.0-beta00016</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+</Project>
