@@ -6,6 +6,7 @@ namespace Dncy.Tools.LuceneNet
     {
         /// <summary>
         /// 索引文件目录
+        /// 默认会拼接LuceneIndexs
         /// </summary>
         public string IndexDir { get; set; }
 

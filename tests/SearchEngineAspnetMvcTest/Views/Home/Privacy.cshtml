@@ -1,0 +1,19 @@
+﻿@model Dncy.Tools.LuceneNet.SearchResultCollection<Dncy.Tools.LuceneNet.ScoredSearchResult<Person>>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>结果总数：@Model.TotalHits</h1>
+
+@if (Model.TotalHits > 0)
+{
+    @foreach (var item in Model.Results)
+    {
+        <ul>
+            <li>id: @item.Data.Id</li>
+            <li>name: @item.Data.Name</li>
+            <li>searchResult: @Html.Raw(@item.HightLightValue[nameof(Person.Remarks)])</li>
+        </ul>
+    }
+}

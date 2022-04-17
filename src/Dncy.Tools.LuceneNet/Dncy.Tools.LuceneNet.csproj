@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1;net451;net452;net46;net461;net50;net60</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net451;net452;net46;net461;net462;net50;net60</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Lucene.Net 分词工具</Description>
@@ -11,6 +11,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
+		<PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00016" />
+		<PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00016" />
+		<PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -47,6 +50,12 @@
 	  <PackageReference Include="Lucene.Net.Analysis.SmartCn">
 	    <Version>4.8.0-beta00016</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+		<PackageReference Include="Lucene.Net.Analysis.SmartCn">
+			<Version>4.8.0-beta00016</Version>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
