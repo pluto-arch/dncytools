@@ -1,7 +1,12 @@
+using System.Collections.Immutable;
+using System.Text;
+using Dncy.Tools;
 using Dncy.Tools.LuceneNet;
 using J2N.Text;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Cn.Smart;
+using Lucene.Net.Analysis.Util;
+using Lucene.Net.Util;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
@@ -15,7 +20,12 @@ builder.Services.Configure<LuceneSearchEngineOptions>(o =>
 {
     o.IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs");
 });
-builder.Services.AddScoped<Analyzer>(s => new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion));
+
+var defaultStop= CharArraySet.UnmodifiableSet(WordlistLoader.GetWordSet(IOUtils.GetDecodingReader(typeof(SmartChineseAnalyzer), "stopwords.txt", Encoding.UTF8), "//", LuceneSearchEngine.LuceneVersion));
+var stopwords = new CharArraySet(LuceneSearchEngine.LuceneVersion, new string[] {"µÄ", "sb"}, true);
+stopwords.Add(defaultStop.ToImmutableArray());
+
+builder.Services.AddScoped<Analyzer>(s => new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion,stopwords));
 builder.Services.AddScoped<LuceneSearchEngine>();
 
 

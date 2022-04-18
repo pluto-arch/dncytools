@@ -28,6 +28,7 @@ builder.Services.Configure<LuceneSearchEngineOptions>(o =>
 {
     o.IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs");
 });
+// SmartChineseAnalyzer 的停用词可以自定义
 builder.Services.AddScoped<Analyzer>(s => new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion));
 builder.Services.AddScoped<LuceneSearchEngine>();
 
@@ -41,6 +42,14 @@ public class Demo
 	}
 }
 ```
+
+### 自定义停止词
+
+```csharp
+var defaultStop= CharArraySet.UnmodifiableSet(WordlistLoader.GetWordSet(IOUtils.GetDecodingReader(typeof(SmartChineseAnalyzer), "stopwords.txt", Encoding.UTF8), "//", LuceneSearchEngine.LuceneVersion));
+var stopwords = new CharArraySet(LuceneSearchEngine.LuceneVersion, new string[] {"的", "sb"}, true);
+```
+
 
 
 ### 从数据集合创建索引
