@@ -19,9 +19,7 @@ using Lucene.Net.Store;
 using Lucene.Net.Util;
 
 #if NETCOREAPP
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging.Abstractions;
 #endif
 
 using Directory = System.IO.Directory;
@@ -38,7 +36,6 @@ namespace Dncy.Tools.LuceneNet
         public FSDirectory IndexDirectory { get; private set; }
 
 #if NETCOREAPP
-        private readonly ILogger _logger;
         /// <summary>
         /// initializes a new instance of the <see cref="LuceneSearchEngine"/> class.
         /// </summary>
@@ -50,8 +47,7 @@ namespace Dncy.Tools.LuceneNet
         public LuceneSearchEngine(
             Analyzer analyzer,
             IOptions<LuceneSearchEngineOptions> options, 
-            IFieldSerializeProvider fieldSerializeProvider, 
-            ILogger<LuceneSearchEngine> logger)
+            IFieldSerializeProvider fieldSerializeProvider)
         {
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
             _fieldSerializeProvider = fieldSerializeProvider ?? throw new ArgumentNullException(nameof(fieldSerializeProvider));
@@ -59,7 +55,6 @@ namespace Dncy.Tools.LuceneNet
             _ = _options.IndexDir ?? throw new ArgumentNullException(nameof(LuceneSearchEngineOptions.IndexDir));
             Analyzer = analyzer??throw new ArgumentNullException(nameof(analyzer));;
             IndexDirCache.Add(_options.IndexDir);
-            _logger = logger ?? NullLogger<LuceneSearchEngine>.Instance;
             IndexDirectory = OpenDirectory(_options.IndexDir);
         }
 #else

@@ -28,26 +28,4 @@
 		<PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
 	</ItemGroup>
 
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Include="Lucene.Net.Analysis.SmartCn">
-			<Version>4.8.0-beta00016</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
-		<PackageReference Include="Lucene.Net.Analysis.SmartCn">
-			<Version>4.8.0-beta00016</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
-		<PackageReference Include="Lucene.Net.Analysis.SmartCn">
-			<Version>4.8.0-beta00016</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
-	</ItemGroup>
-
 </Project>
