@@ -1,10 +1,13 @@
-﻿using System;
+﻿#if !NET40
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using System.Text;
+
 using System.Threading;
+
+
 
 namespace System.Collections.Concurrent
 {
@@ -69,7 +72,7 @@ namespace System.Collections.Concurrent
             Dispose(false);
         }
 
-        public void OnDeserialization(object sender)
+        public void OnDeserialization(object? sender)
         {
             _hashSet.OnDeserialization(sender);
         }
@@ -317,9 +320,7 @@ namespace System.Collections.Concurrent
             }
         }
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
     }
 }
+#endif

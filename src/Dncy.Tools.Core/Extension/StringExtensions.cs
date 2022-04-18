@@ -447,7 +447,7 @@ namespace Dncy.Tools
         /// 匹配手机号码
         /// </summary>
         /// <param name="s">源字符串</param>
-        /// <param name="isMatch">是否匹配成功，若返回true，则会得到一个Match对象，否则为null</param>
+        /// <param name="matchValue">是否匹配成功，若返回true，则会得到一个Match对象，否则为null</param>
         /// <returns>匹配对象</returns>
         public static bool MatchPhoneNumber(this string s, out string matchValue)
         {

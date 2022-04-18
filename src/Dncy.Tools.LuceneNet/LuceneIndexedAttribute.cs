@@ -54,9 +54,10 @@ namespace Dncy.Tools.LuceneNet
         public bool IsHighLight { get; set; }
 
         /// <summary>
-        /// 最长高亮短句长度
+        /// 查询匹配的数量 - 用于高亮. 默认1
+        /// 放置影响性能，请适当设置，推荐1-5之间
         /// </summary>
-        public int HightLightMaxNumber { get; set; }
+        public int HightLightMaxNumber { get; set; } = 1;
 
         /// <summary>
         /// 是否需要序列化后存储

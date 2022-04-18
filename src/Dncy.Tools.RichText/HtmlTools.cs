@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-#if NETCOREAPP || NETSTANDARD || (NET46_OR_GREATER&&!NET462)
+#if NETCOREAPP || (NET46_OR_GREATER&&!NET462)
 using AngleSharp;
 using AngleSharp.Dom;
 using Ganss.XSS;
@@ -17,7 +17,8 @@ namespace Dncy.Tools.RichText
 {
     public static partial class HtmlTools
     {
-#if NETCOREAPP || NETSTANDARD || (NET46_OR_GREATER&&!NET462)
+
+#if NETCOREAPP || (NET46_OR_GREATER&&!NET462)
 
         private static readonly HtmlSanitizer Sanitizer = new HtmlSanitizer();
 

@@ -2,7 +2,7 @@
 
 namespace System.Linq.Expressions
 {
-    public static class LinqExtension
+    public static partial class LinqExtension
     {
         /// <summary>
         /// 与连接

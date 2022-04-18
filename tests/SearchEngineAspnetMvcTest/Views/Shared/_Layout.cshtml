@@ -38,6 +38,12 @@
             </select>
             <button type="submit">搜索</button>
         </form>
+        <br/>
+         <form asp-action="Delete" method="post">
+            <input type="text" name="id" placeholder="请输入删除的数据id" value="@ViewBag.Id"/>
+            <button type="submit">搜索</button>
+        </form>
+        <br/>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

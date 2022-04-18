@@ -61,10 +61,9 @@ namespace NUnitTest
         {
             InitData();
 #if !NETCOREAPP
-            var searchEngine = new LuceneSearchEngine(new LuceneSearchEngineOptions
+            using var searchEngine = new LuceneSearchEngine(new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion),new LuceneSearchEngineOptions
             {
                 IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,  "luceneIndexs"),
-                Analyzer = new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion)
             },new NewtonsoftMessageSerializeProvider());
             var idx = searchEngine.CreateIndex(_users);
             Assert.IsTrue(idx);
@@ -77,11 +76,10 @@ namespace NUnitTest
         public void LuceneSearch_Test()
         {
 #if !NETCOREAPP
-            var searchEngine = new LuceneSearchEngine(new LuceneSearchEngineOptions
+            using var searchEngine = new LuceneSearchEngine(new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion),new LuceneSearchEngineOptions
             {
-                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs"),
-                Analyzer = new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion)
-            }, new NewtonsoftMessageSerializeProvider());
+                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,  "luceneIndexs"),
+            },new NewtonsoftMessageSerializeProvider());
 
             var parser = new QueryParser(LuceneVersion.LUCENE_48, nameof(Person.Remarks), searchEngine.Analyzer);
             var query = parser.Parse("掉多少根头发");
@@ -109,11 +107,10 @@ namespace NUnitTest
         public void IndexInfo_Test()
         {
 #if !NETCOREAPP
-            var searchEngine = new LuceneSearchEngine(new LuceneSearchEngineOptions
+            using var searchEngine = new LuceneSearchEngine(new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion),new LuceneSearchEngineOptions
             {
-                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs"),
-                Analyzer = new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion)
-            }, new NewtonsoftMessageSerializeProvider());
+                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,  "luceneIndexs"),
+            },new NewtonsoftMessageSerializeProvider());
 
             var indexInfo = searchEngine.CurrentIndexInfo();
 #endif
@@ -126,11 +123,10 @@ namespace NUnitTest
         public void DeleteDocument_Test()
         {
 #if !NETCOREAPP
-            var searchEngine = new LuceneSearchEngine(new LuceneSearchEngineOptions
+            using var searchEngine = new LuceneSearchEngine(new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion),new LuceneSearchEngineOptions
             {
-                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs"),
-                Analyzer = new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion)
-            }, new NewtonsoftMessageSerializeProvider());
+                IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,  "luceneIndexs"),
+            },new NewtonsoftMessageSerializeProvider());
 
             //var parser = new QueryParser(LuceneVersion.LUCENE_48, nameof(Person.Remarks), searchEngine.Analyzer);
             //var query = parser.Parse("掉多少根头发");
@@ -161,40 +157,6 @@ namespace NUnitTest
 
         }        
 
-
-
-
-
-        /// <summary>
-        /// 随机产生常用汉字
-        /// </summary>
-        /// <param name="count">要产生汉字的个数</param>
-        /// <returns>常用汉字</returns>
-        public static string GenerateChineseWord(int count)
-        {
-            string chineseWords = "";
-            System.Random rm = new System.Random();
-            var gb = Encoding.GetEncoding("gb2312");
-            for (int i = 0; i < count; i++)
-            {
-                int regionCode = rm.Next(16, 56);
-
-                int positionCode;
-                if (regionCode == 55)
-                {
-                    positionCode = rm.Next(1, 90);
-                }
-                else
-                {
-                    positionCode = rm.Next(1, 95);
-                }
-                int regionCode_Machine = regionCode + 160;
-                int positionCode_Machine = positionCode + 160;
-                byte[] bytes = new byte[] { (byte)regionCode_Machine, (byte)positionCode_Machine };
-                chineseWords += gb.GetString(bytes);
-            }
-            return chineseWords;
-        }
     }
 
 
@@ -213,6 +175,7 @@ namespace NUnitTest
 
     public class NewtonsoftMessageSerializeProvider : IFieldSerializeProvider
     {
+
         /// <inheritdoc />
         public string Serialize(object obj)
         {
@@ -229,6 +192,10 @@ namespace NUnitTest
         public object? Deserialize(string objStr, Type type)
         {
             return JsonConvert.DeserializeObject(objStr, type);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SearchEngineAspnetMvcTest.Models
         [LuceneIndexed("Name", false)]
         public string Name { get; set; }
 
-        [LuceneIndexed("Remarks", false, IsTextField = true, IsHighLight = true, HightLightMaxNumber = 2)]
+        [LuceneIndexed("Remarks", false, IsTextField = true, IsHighLight = true, HightLightMaxNumber = 1)]
         public string Remarks { get; set; }
     }
 }

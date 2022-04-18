@@ -1,7 +1,11 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+
+#if !NET40
 using System.Threading;
+#endif
+
 
 namespace Dncy.Tools.Files
 {

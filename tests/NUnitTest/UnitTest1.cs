@@ -88,7 +88,8 @@ namespace NUnitTest
             var id = SnowFlake.NewLongId;
             var shortId = id.ToBinary(32);
 
-
+#if !NET40
+            
             ConcurrentHashSet<long> longIds = new ConcurrentHashSet<long>();
             ConcurrentHashSet<string> uniqueIds = new ConcurrentHashSet<string>();
 
@@ -122,7 +123,7 @@ namespace NUnitTest
             
             Assert.IsTrue(longIds.Count == 40000);
             Assert.IsTrue(uniqueIds.Count == 40000);
-
+#endif
         }
 
         [Test]

@@ -6,7 +6,11 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+
+#if !NET40
 using System.Threading.Tasks;
+#endif
+
 
 namespace Dncy.Tools.Media
 {

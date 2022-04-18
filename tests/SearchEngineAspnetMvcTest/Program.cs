@@ -1,4 +1,6 @@
 using Dncy.Tools.LuceneNet;
+using J2N.Text;
+using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Cn.Smart;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -11,10 +13,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IFieldSerializeProvider, NewtonsoftMessageSerializeProvider>();
 builder.Services.Configure<LuceneSearchEngineOptions>(o =>
 {
-    o.Analyzer = new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion);
     o.IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "luceneIndexs");
 });
-builder.Services.AddSingleton<LuceneSearchEngine>();
+builder.Services.AddScoped<Analyzer>(s => new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion));
+builder.Services.AddScoped<LuceneSearchEngine>();
 
 
 var app = builder.Build();
@@ -45,6 +47,8 @@ app.Run();
 
 public class NewtonsoftMessageSerializeProvider : IFieldSerializeProvider
 {
+    private bool disposedValue;
+
     /// <inheritdoc />
     public string Serialize(object obj)
     {
@@ -61,5 +65,35 @@ public class NewtonsoftMessageSerializeProvider : IFieldSerializeProvider
     public object? Deserialize(string objStr, Type type)
     {
         return JsonConvert.DeserializeObject(objStr, type);
+    }
+
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: 释放托管状态(托管对象)
+            }
+
+            // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+            // TODO: 将大型字段设置为 null
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+    // ~NewtonsoftMessageSerializeProvider()
+    // {
+    //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Dncy.Tools
 {
-    public static class StringExtension
+    public static partial class StringExtension
     {
         /// <summary>
         /// 获取字符串crc32签名

@@ -2,7 +2,7 @@
 
 namespace Dncy.Tools.LuceneNet
 {
-    public interface IFieldSerializeProvider
+    public interface IFieldSerializeProvider:IDisposable
     {
         string Serialize(object obj);
 

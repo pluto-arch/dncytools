@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-
+using System.Threading.Tasks;
 using Dncy.Tools.LuceneNet.Models;
 
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Cn.Smart;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.Index.Extensions;
 using Lucene.Net.Queries;
 using Lucene.Net.Search;
 using Lucene.Net.Search.Highlight;
@@ -23,50 +20,65 @@ using Lucene.Net.Store;
 using Lucene.Net.Util;
 
 #if NETCOREAPP
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging.Abstractions;
 #endif
 
 using Directory = System.IO.Directory;
 
 namespace Dncy.Tools.LuceneNet
 {
-    public class LuceneSearchEngine
+    public class LuceneSearchEngine:IDisposable
     {
 
         private readonly LuceneSearchEngineOptions _options;
         private readonly IFieldSerializeProvider _fieldSerializeProvider;
         public const LuceneVersion LuceneVersion = Lucene.Net.Util.LuceneVersion.LUCENE_48;
         public Analyzer Analyzer { get; private set; }
+        public FSDirectory IndexDirectory { get; private set; }
 
 #if NETCOREAPP
-        public LuceneSearchEngine(IOptions<LuceneSearchEngineOptions> options, IFieldSerializeProvider fieldSerializeProvider)
+        private readonly ILogger _logger;
+        /// <summary>
+        /// initializes a new instance of the <see cref="LuceneSearchEngine"/> class.
+        /// </summary>
+        /// <param name="analyzer">分析器</param>
+        /// <param name="options">选项</param>
+        /// <param name="fieldSerializeProvider">字段序列化工具</param>
+        /// <param name="logger"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public LuceneSearchEngine(
+            Analyzer analyzer,
+            IOptions<LuceneSearchEngineOptions> options, 
+            IFieldSerializeProvider fieldSerializeProvider, 
+            ILogger<LuceneSearchEngine> logger)
         {
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
             _fieldSerializeProvider = fieldSerializeProvider ?? throw new ArgumentNullException(nameof(fieldSerializeProvider));
 
             _ = _options.IndexDir ?? throw new ArgumentNullException(nameof(LuceneSearchEngineOptions.IndexDir));
-            _ = _options.Analyzer ?? throw new ArgumentNullException(nameof(LuceneSearchEngineOptions.Analyzer));
-
-            Analyzer = _options.Analyzer;
-
+            Analyzer = analyzer??throw new ArgumentNullException(nameof(analyzer));;
             IndexDirCache.Add(_options.IndexDir);
-            
+            _logger = logger ?? NullLogger<LuceneSearchEngine>.Instance;
+            IndexDirectory = OpenDirectory(_options.IndexDir);
         }
 #else
-        public LuceneSearchEngine(LuceneSearchEngineOptions options, IFieldSerializeProvider serializeProvider)
+        public LuceneSearchEngine(Analyzer analyzer,LuceneSearchEngineOptions options, IFieldSerializeProvider serializeProvider)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _ = _options.IndexDir ?? throw new ArgumentNullException(nameof(options.IndexDir));
-            _ = _options.Analyzer ?? throw new ArgumentNullException(nameof(options.Analyzer));
-            Analyzer = _options.Analyzer;
+            Analyzer = analyzer?? throw new ArgumentNullException(nameof(analyzer));
             _fieldSerializeProvider = serializeProvider;
             IndexDirCache.Add(_options.IndexDir);
+            IndexDirectory = OpenDirectory(_options.IndexDir);
         }
 #endif
 
 
         static readonly ConcurrentDictionary<Type, Dictionary<PropertyInfo, LuceneIndexedAttribute>> TypeFieldCache = new();
         static readonly ConcurrentBag<string> IndexDirCache = new();
+        private bool disposedValue;
 
         /// <summary>
         /// 创建索引
@@ -75,18 +87,17 @@ namespace Dncy.Tools.LuceneNet
         /// <param name="datas"></param>
         /// <param name="recreate"></param>
         /// <returns></returns>
-        public bool CreateIndex<T>(IEnumerable<T> datas,bool recreate=false)
+        public bool CreateIndex<T>(IEnumerable<T> datas, bool recreate = false)
         {
-            var directory = OpenDirectory();
-            if (IndexWriter.IsLocked(directory))
+            if (IndexWriter.IsLocked(IndexDirectory))
             {
                 //  若是索引目录被锁定（好比索引过程当中程序异常退出），则首先解锁
                 //  Lucene.Net在写索引库以前会自动加锁，在close的时候会自动解锁
-                IndexWriter.Unlock(directory);
+                IndexWriter.Unlock(IndexDirectory);
             }
 
             //Lucene的index模块主要负责索引的建立
-            using var writer = new IndexWriter(directory,new IndexWriterConfig(LuceneVersion,_options.Analyzer));
+            using var writer = new IndexWriter(IndexDirectory, new IndexWriterConfig(LuceneVersion, Analyzer));
             // 删除重建
             if (recreate)
             {
@@ -102,7 +113,7 @@ namespace Dncy.Tools.LuceneNet
             writer.Flush(true, true);
             return true;
         }
-        
+
 
         /// <summary>
         /// 搜索
@@ -110,11 +121,10 @@ namespace Dncy.Tools.LuceneNet
         /// <typeparam name="T"></typeparam>
         /// <param name="search">查询对象</param>
         /// <returns></returns>
-        public SearchResultCollection<ScoredSearchResult<T>> Search<T>(SearchModel search) where T: class, new()
+        public SearchResultCollection<ScoredSearchResult<T>> Search<T>(SearchModel search) where T : class, new()
         {
             _ = search.MaxHits <= 0 ? throw new ArgumentOutOfRangeException(nameof(search.MaxHits)) : search.MaxHits;
-            var directory = OpenDirectory();
-            using var reader = DirectoryReader.Open(directory);
+            using var reader = DirectoryReader.Open(IndexDirectory);
             var searcher = new SearcherFactory().NewSearcher(reader);
             var sort = new Sort(search.OrderBy.ToArray());
             Expression<Func<ScoreDoc, bool>> where = m => m.Score >= search.Score;
@@ -143,14 +153,15 @@ namespace Dncy.Tools.LuceneNet
             }
             var docs = hits.ToList();
             var scorer = new QueryScorer(search.Query);
-            var highlighter = new Highlighter(new SimpleHTMLFormatter(search.HighlightTag.preTag, search.HighlightTag.postTag), scorer)
+            Highlighter highlighter = null;
+            highlighter = new Highlighter(new SimpleHTMLFormatter(search.HighlightTag.preTag, search.HighlightTag.postTag), scorer)
             {
                 TextFragmenter = new SimpleFragmenter()
             };
             foreach (var match in docs)
             {
                 var doc = searcher.Doc(match.Doc);
-                var entity = GetConcreteFromDocument<T>(doc, highlighter);
+                var entity = GetSearchRsultFromDocument<T>(doc, highlighter);
                 entity.DocId = match.Doc;
                 entity.Score = match.Score;
                 resultSet.Results.Add(entity);
@@ -159,75 +170,22 @@ namespace Dncy.Tools.LuceneNet
         }
 
 
-        ///// <summary>
-        ///// 根据索引文档id删除文档
-        ///// </summary>
-        ///// <param name="docId">文档id</param>
-        ///// <returns></returns>
-        //public bool DeleteDocumentByDocId(int docId)
-        //{
-        //    var directory = OpenDirectory();
-        //    if (IndexWriter.IsLocked(directory))
-        //    {
-        //        //  若是索引目录被锁定（好比索引过程当中程序异常退出），则首先解锁
-        //        //  Lucene.Net在写索引库以前会自动加锁，在close的时候会自动解锁
-        //        IndexWriter.Unlock(directory);
-        //    }
-        //    using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion, _options.Analyzer));
-        //    writer.DeleteDocuments(new Term("IndexId", docId.ToString()));
-        //    writer.Flush(true, true);
-        //    writer.Commit();
-        //    return true;
-        //}
-
-        ///// <summary>
-        ///// 根据文档id集合删除文档
-        ///// </summary>
-        ///// <param name="docIds">文档id集合</param>
-        ///// <returns></returns>
-        //public bool DeleteDocumentsByDocId(IEnumerable<int> docIds)
-        //{
-        //    var directory = OpenDirectory();
-        //    if (IndexWriter.IsLocked(directory))
-        //    {
-        //        //  若是索引目录被锁定（好比索引过程当中程序异常退出），则首先解锁
-        //        //  Lucene.Net在写索引库以前会自动加锁，在close的时候会自动解锁
-        //        IndexWriter.Unlock(directory);
-        //    }
-        //    using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion, _options.Analyzer));
-        //    foreach (var entity in docIds)
-        //    {
-        //        var tempId = entity.ToString();
-        //        if (string.IsNullOrEmpty(tempId))
-        //        {
-        //            continue;
-        //        }
-        //        writer.DeleteDocuments(new Term("IndexId", tempId));
-        //    }
-        //    writer.Flush(true, true);
-        //    writer.Commit();
-        //    return true;
-        //}
-
-
         /// <summary>
-        /// 根据数据id删除文档
+        /// 根据标识删除
         /// </summary>
         /// <param name="idFieldName">数据id字段名称</param>
         /// <param name="dataId">数据id值</param>
         /// <returns></returns>
-        public bool DeleteDocumentByDataId(string idFieldName,string dataId)
+        public bool DeleteDocumentByDataId(string idFieldName, string dataId)
         {
-            var directory = OpenDirectory();
-            if (IndexWriter.IsLocked(directory))
+            if (IndexWriter.IsLocked(IndexDirectory))
             {
                 //  若是索引目录被锁定（好比索引过程当中程序异常退出），则首先解锁
                 //  Lucene.Net在写索引库以前会自动加锁，在close的时候会自动解锁
-                IndexWriter.Unlock(directory);
+                IndexWriter.Unlock(IndexDirectory);
             }
-            using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion, _options.Analyzer));
-            var query = new QueryBuilder(_options.Analyzer).CreateBooleanQuery(idFieldName, dataId,Occur.MUST);
-            writer.DeleteDocuments(query);
+            using var writer = new IndexWriter(IndexDirectory, new IndexWriterConfig(LuceneVersion, Analyzer));
+            writer.DeleteDocuments(new TermQuery(new Term(idFieldName, dataId)));
             writer.Flush(true, true);
             writer.Commit();
             return true;
@@ -235,57 +193,117 @@ namespace Dncy.Tools.LuceneNet
 
 
         /// <summary>
-        /// 根据文档id集合删除文档
+        /// 根据标识删除
         /// </summary>
         /// <param name="idFieldName">数据id字段名称</param>
         /// <param name="dataIds">数据id集合</param>
         /// <returns></returns>
         public bool DeleteDocumentsByDataId(string idFieldName, IEnumerable<string> dataIds)
         {
-            var directory = OpenDirectory();
-            if (IndexWriter.IsLocked(directory))
+            if (IndexWriter.IsLocked(IndexDirectory))
             {
                 //  若是索引目录被锁定（好比索引过程当中程序异常退出），则首先解锁
                 //  Lucene.Net在写索引库以前会自动加锁，在close的时候会自动解锁
-                IndexWriter.Unlock(directory);
-            }            
-            using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion,_options.Analyzer));
-            foreach (var entity in dataIds)
-            {
-                if (string.IsNullOrEmpty(entity))
-                {
-                    continue;
-                }
-                writer.DeleteDocuments(new Term(idFieldName, entity));
+                IndexWriter.Unlock(IndexDirectory);
             }
-            writer.Flush(true, true);
-            writer.Commit();
-            var dd = writer.HasDeletions();
+            using var writer = new IndexWriter(IndexDirectory, new IndexWriterConfig(LuceneVersion, Analyzer));
+            try
+            {
+                foreach (var entity in dataIds)
+                {
+                    if (string.IsNullOrEmpty(entity))
+                    {
+                        continue;
+                    }
+                    writer.DeleteDocuments(new Term(idFieldName, entity));
+                }
+                writer.Flush(true, true);
+                writer.Commit();
+            }
+            finally
+            {
+                writer.Rollback();
+            }
             return true;
         }
-        
+
+        /// <summary>
+        /// 根据标识更新数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="idFieldName"></param>
+        /// <param name="dataId"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public bool UpdateByDataId<T>(string idFieldName, string dataId,T data)
+        {
+            _ = idFieldName ?? throw new ArgumentNullException(nameof(idFieldName));
+            DeleteDocumentByDataId(idFieldName,dataId);
+            var doc = ToDocument(data);
+            if (IndexWriter.IsLocked(IndexDirectory))
+            {
+                IndexWriter.Unlock(IndexDirectory);
+            }
+            using var writer = new IndexWriter(IndexDirectory, new IndexWriterConfig(LuceneVersion, Analyzer));
+            writer.AddDocument(doc);
+            writer.Flush(true, true);
+            return true;
+        }
+
+
+        /// <summary>
+        /// 根据标识更新数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="datas"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public bool UpdateByDataId<T>(List<UpdateModel<T>> datas)
+        {
+            if (IndexWriter.IsLocked(IndexDirectory))
+            {
+                IndexWriter.Unlock(IndexDirectory);
+            }
+            using var writer = new IndexWriter(IndexDirectory, new IndexWriterConfig(LuceneVersion, Analyzer));
+            try
+            {
+                foreach (var item in datas)
+                {
+                    if (string.IsNullOrEmpty(item.IdFieldName)||string.IsNullOrEmpty(item.DataId))
+                    {
+                        continue;
+                    }
+                    DeleteDocumentByDataId(item.IdFieldName,item.DataId);
+                    var doc = ToDocument(item);
+                    writer.AddDocument(doc);
+                }
+                writer.Flush(true, true);
+                return true;
+            }
+            finally
+            {
+                writer.Rollback();
+            }
+        }
+
+
         /// <summary>
         /// 当前索引信息
         /// </summary>
         /// <returns></returns>
         public IndexInfo CurrentIndexInfo()
         {
-            var directory = OpenDirectory();
-            if (directory==null)
-            {
-                throw new DirectoryNotFoundException($"{_options.IndexDir} is not found");
-            }
-
-            var size = (from strFile in directory.ListAll() select directory.FileLength(strFile)).Sum();
-            using IndexReader reader = DirectoryReader.Open(directory);
+            var size = (from strFile in IndexDirectory.ListAll() select IndexDirectory.FileLength(strFile)).Sum();
+            using IndexReader reader = DirectoryReader.Open(IndexDirectory);
             var di = new System.IO.DriveInfo(_options.IndexDir);
             var model = new IndexInfo
             {
                 Dir = _options.IndexDir,
                 DocumentCount = reader.NumDocs,
-                LastAccessTimeUtc = directory.Directory.LastAccessTimeUtc,
-                CreateTimeUtc = directory.Directory.CreationTimeUtc,
-                LastWriteTimeUtc = directory.Directory.LastWriteTimeUtc,
+                LastAccessTimeUtc = IndexDirectory.Directory.LastAccessTimeUtc,
+                CreateTimeUtc = IndexDirectory.Directory.CreationTimeUtc,
+                LastWriteTimeUtc = IndexDirectory.Directory.LastWriteTimeUtc,
                 DriveTotalFreeSpace = di.TotalFreeSpace,
                 DriveTotalSize = di.TotalSize,
                 DriveAvailableFreeSpace = di.AvailableFreeSpace,
@@ -304,7 +322,7 @@ namespace Dncy.Tools.LuceneNet
             var res = new List<IndexInfo>();
             foreach (var dir in IndexDirCache)
             {
-               
+
                 var di = new System.IO.DriveInfo(_options.IndexDir);
                 var model = new IndexInfo
                 {
@@ -312,14 +330,14 @@ namespace Dncy.Tools.LuceneNet
                     DriveTotalFreeSpace = di.TotalFreeSpace,
                     DriveTotalSize = di.TotalSize,
                     DriveAvailableFreeSpace = di.AvailableFreeSpace,
-                    
+
                 };
                 var directory = OpenDirectory(dir);
-                if (directory==null)
+                if (directory == null)
                 {
                     continue;
                 }
-                var size = ( from strFile in directory.ListAll() select directory.FileLength(strFile) ).Sum();
+                var size = (from strFile in directory.ListAll() select directory.FileLength(strFile)).Sum();
                 model.IndexSize = size;
                 model.LastAccessTimeUtc = directory.Directory.LastAccessTimeUtc;
                 model.CreateTimeUtc = directory.Directory.CreationTimeUtc;
@@ -342,21 +360,50 @@ namespace Dncy.Tools.LuceneNet
             {
                 throw new DirectoryNotFoundException($"索引目录不存在：{dir}");
             }
-            var parentScope = _options.IndexDir;
-            _options.IndexDir = dir;
+
+            var newIdxDir = OpenDirectory(dir);
+            var parentScope = IndexDirectory;
+            IndexDirectory = newIdxDir;
             IndexDirCache.Add(dir);
             return new DisposeAction(() =>
             {
-                _options.IndexDir = parentScope;
+                IndexDirectory = parentScope;
+                newIdxDir?.Dispose();
             });
         }
 
-        
+
+        /// <summary>
+        /// 切换分析器
+        /// </summary>
+        /// <returns></returns>
+        public IDisposable ChangeAnalyzer(Analyzer analyzer)
+        {
+            if (analyzer == null)
+            {
+                throw new ArgumentNullException(nameof(analyzer));
+            }
+            var parentScope = Analyzer;
+            Analyzer = analyzer;
+            return new DisposeAction(() =>
+            {
+                Analyzer = parentScope;
+                analyzer?.Dispose();
+            });
+        }
+
+
+        /// <summary>
+        /// 转化未document模型
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public Document ToDocument<T>(T data)
         {
             var doc = new Document();
             var type = typeof(T);
-            
+
             doc.Add(new StringField("Type", type.AssemblyQualifiedName, Field.Store.YES));
 
             var propertys = TypeFieldCache.GetOrAdd(type, m =>
@@ -401,7 +448,7 @@ namespace Dncy.Tools.LuceneNet
                 {
                     continue;
                 }
-                TypeFieldCache.AddOrUpdate(type, new Dictionary<PropertyInfo, LuceneIndexedAttribute> {{propertyInfo, attr } }, (_, _) => new Dictionary<PropertyInfo, LuceneIndexedAttribute> { { propertyInfo, attr } });
+                TypeFieldCache.AddOrUpdate(type, new Dictionary<PropertyInfo, LuceneIndexedAttribute> { { propertyInfo, attr } }, (_, _) => new Dictionary<PropertyInfo, LuceneIndexedAttribute> { { propertyInfo, attr } });
                 var value = propertyInfo.GetValue(data);
                 if (value == null)
                 {
@@ -414,6 +461,11 @@ namespace Dncy.Tools.LuceneNet
             return doc;
         }
 
+        /// <summary>
+        /// 分词
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public static List<string> GetKeyWords(string q)
         {
             var keyworkds = new List<string>();
@@ -484,7 +536,7 @@ namespace Dncy.Tools.LuceneNet
             }
         }
 
-        private FSDirectory OpenDirectory(string dir=null)
+        private FSDirectory OpenDirectory(string dir = null)
         {
             dir ??= _options.IndexDir;
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
@@ -492,7 +544,7 @@ namespace Dncy.Tools.LuceneNet
             return directory;
         }
 
-        private ScoredSearchResult<T> GetConcreteFromDocument<T>(Document doc, Highlighter highlighter = null) where T : class, new()
+        private ScoredSearchResult<T> GetSearchRsultFromDocument<T>(Document doc, Highlighter highlighter = null) where T : class, new()
         {
             var t = typeof(T);
             var type = typeof(ScoredSearchResult<>).MakeGenericType(t);
@@ -501,39 +553,41 @@ namespace Dncy.Tools.LuceneNet
             var dic = new Dictionary<string, string>();
             if (TypeFieldCache.ContainsKey(t))
             {
-                var properties = TypeFieldCache[t].Select(x => x.Key);
-                foreach (var p in properties.Where(p => p.GetCustomAttributes<LuceneIndexedAttribute>().Any()))
+                var properties = TypeFieldCache[t];
+                foreach (var p in properties)
                 {
-                    p.SetValue(dataInstance, doc.Get(p.Name, p.PropertyType, _fieldSerializeProvider));
-                    var attr = p.GetCustomAttribute<LuceneIndexedAttribute>();
+                    p.Key.SetValue(dataInstance, doc.Get(p.Key.Name, p.Key.PropertyType, _fieldSerializeProvider));
+                    var attr = p.Value;
                     if (attr.IsHighLight)
                     {
-                        var value = doc.GetField(p.Name).GetStringValue();
-                        value = GetHightLightPreviewStr(value, p.Name, attr.HightLightMaxNumber, highlighter);
-                        dic.Add(p.Name, value);
+                        var value = doc.GetField(p.Key.Name).GetStringValue();
+                        value = GetHightLightPreviewStr(value, p.Key.Name, attr.HightLightMaxNumber, highlighter);
+                        dic.Add(p.Key.Name, value);
                     }
                 }
             }
             else
             {
+                var propDir = new Dictionary<PropertyInfo, LuceneIndexedAttribute>();
                 foreach (var p in t.GetProperties().Where(p => p.GetCustomAttributes<LuceneIndexedAttribute>().Any()))
                 {
                     p.SetValue(dataInstance, doc.Get(p.Name, p.PropertyType, _fieldSerializeProvider));
                     var attr = p.GetCustomAttribute<LuceneIndexedAttribute>();
+                    if (attr == null)
+                    {
+                        continue;
+                    }
                     if (attr.IsHighLight)
                     {
                         var value = doc.GetField(p.Name).GetStringValue();
                         value = GetHightLightPreviewStr(value, p.Name, attr.HightLightMaxNumber, highlighter);
                         dic.Add(p.Name, value);
                     }
-                    TypeFieldCache.AddOrUpdate(t, new Dictionary<PropertyInfo, LuceneIndexedAttribute> { { p, attr } }, (_, _) => new Dictionary<PropertyInfo, LuceneIndexedAttribute> { { p, attr } });
+                    propDir.Add(p, attr);
                 }
+                TypeFieldCache.AddOrUpdate(t, propDir, (_, _) => propDir);
             }
 
-            //var hightProperty = type.GetProperty("HightLightValue");
-            //hightProperty?.SetValue(obj, dic);
-            //var dataProperty = type.GetProperty("Data");
-            //dataProperty?.SetValue(obj, dataInstance);
             obj.Data = (T)dataInstance;
             obj.HightLightValue = dic;
             return obj;
@@ -541,10 +595,42 @@ namespace Dncy.Tools.LuceneNet
 
         private string GetHightLightPreviewStr(string value, string field, int maxNumFragments, Highlighter highlighter)
         {
+            if (highlighter==null)
+            {
+                return value;
+            }
             using var stream = Analyzer.GetTokenStream(field, new StringReader(value));
             var previews = highlighter.GetBestFragments(stream, value, maxNumFragments);
             var preview = string.Join("\n", previews.Select(html => html.Trim()));
             return preview;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Analyzer?.Dispose();
+                    IndexDirectory?.Dispose();
+                    _fieldSerializeProvider?.Dispose();
+                }
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~LuceneSearchEngine()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion
 

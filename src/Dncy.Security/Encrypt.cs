@@ -2,7 +2,11 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+
+#if !NET40
 using System.Threading.Tasks;
+#endif
+
 
 namespace Dncy.Tools.Security
 {

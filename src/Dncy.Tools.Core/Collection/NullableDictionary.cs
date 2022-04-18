@@ -33,10 +33,10 @@ namespace System.Collections.Generic
         ///
         /// </summary>
         /// <param name="key"></param>
-        public new TValue this[NullObject<TKey> key]
+        public new TValue? this[NullObject<TKey> key]
         {
             get => TryGetValue(key, out var value) ? value : default;
-            set => base[key] = value;
+            set => base[key] = value!;
         }
 
         /// <summary>

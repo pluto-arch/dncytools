@@ -9,11 +9,6 @@ namespace Dncy.Tools.LuceneNet
         /// 默认会拼接LuceneIndexs
         /// </summary>
         public string IndexDir { get; set; }
-
-        /// <summary>
-        /// 分析器
-        /// </summary>
-        public Analyzer Analyzer { get; set; }
     }
 }
 

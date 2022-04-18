@@ -7,17 +7,17 @@ namespace Dncy.Tools.LuceneNet
     public class SearchModel
     {
 
+        public SearchModel()
+        {
+            EnableHighLight = true;
+        }
+
         /// <summary>
         /// initializes a new instance of the <see cref="SearchModel"/> class.
         /// </summary>
         /// <param name="query"></param>
         /// <param name="maxHits"></param>
-        /// <param name="orderBy"></param>
-        /// <param name="skip"></param>
-        /// <param name="take"></param>
-        /// <param name="score"></param>
-        /// <param name="onlyTyped"></param>
-        public SearchModel(Query query, int maxHits)
+        public SearchModel(Query query, int maxHits):this()
         {
             Query = query;
             MaxHits = maxHits;
@@ -30,11 +30,7 @@ namespace Dncy.Tools.LuceneNet
         /// <param name="query"></param>
         /// <param name="maxHits"></param>
         /// <param name="orderBy"></param>
-        /// <param name="skip"></param>
-        /// <param name="take"></param>
-        /// <param name="score"></param>
-        /// <param name="onlyTyped"></param>
-        public SearchModel(Query query, int maxHits, List<SortField> orderBy)
+        public SearchModel(Query query, int maxHits, List<SortField> orderBy):this()
         {
             Query = query;
             MaxHits = maxHits;
@@ -50,9 +46,7 @@ namespace Dncy.Tools.LuceneNet
         /// <param name="orderBy"></param>
         /// <param name="skip"></param>
         /// <param name="take"></param>
-        /// <param name="score"></param>
-        /// <param name="onlyTyped"></param>
-        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take)
+        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take):this()
         {
             Query = query;
             MaxHits = maxHits;
@@ -72,8 +66,7 @@ namespace Dncy.Tools.LuceneNet
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <param name="score"></param>
-        /// <param name="onlyTyped"></param>
-        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take, float score)
+        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take, float score):this()
         {
             Query = query;
             MaxHits = maxHits;
@@ -94,7 +87,7 @@ namespace Dncy.Tools.LuceneNet
         /// <param name="take"></param>
         /// <param name="score"></param>
         /// <param name="onlyTyped"></param>
-        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take, float score, bool onlyTyped)
+        public SearchModel(Query query, int maxHits, List<SortField> orderBy, int skip, int take, float score, bool onlyTyped):this()
         {
             Query = query;
             MaxHits = maxHits;
@@ -147,6 +140,11 @@ namespace Dncy.Tools.LuceneNet
         /// </summary>
         /// <example>("<b style='color:red'>","</b>")</example>
         public (string preTag,string postTag) HighlightTag { get; set; }
+
+        /// <summary>
+        /// 是否启用高亮 默认true
+        /// </summary>
+        public bool EnableHighLight { get; set; }
     }
 }
 
