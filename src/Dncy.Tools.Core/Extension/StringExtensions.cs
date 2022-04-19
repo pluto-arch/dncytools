@@ -263,18 +263,6 @@ namespace Dncy.Tools
         #endregion 
 
 
-        /// <summary>
-        /// 任意进制转大数十进制
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="base">进制</param>
-        /// <returns></returns>
-        public static BigInteger FromBinaryBig(this string str, byte @base)
-        {
-            var nf = new NumberFormater(@base);
-            return nf.FromStringBig(str);
-        }
-
 
         /// <summary>
         /// 任意进制转十进制
@@ -282,10 +270,10 @@ namespace Dncy.Tools
         /// <param name="str"></param>
         /// <param name="base">进制</param>
         /// <returns></returns>
-        public static long FromBinary(this string str, byte @base)
+        public static long ToNumber(this string str, byte @base)
         {
-            var nf = new NumberFormater(@base);
-            return nf.FromString(str);
+            var nf = new NumberBaseConvertor(@base);
+            return nf.ToNumber(str);
         }
 
         /// <summary>
@@ -296,7 +284,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static string CreateShortToken(this string _, byte chars = 36)
         {
-            var nf = new NumberFormater(chars);
+            var nf = new NumberBaseConvertor(chars);
             return nf.ToString(( DateTime.Now.Ticks - 630822816000000000 ) * 100 + Stopwatch.GetTimestamp() % 100);
         }
 

@@ -27,7 +27,7 @@ namespace Dncy.SnowFlake
         private const long SequenceMask = -1L ^ -1L << (int)SequenceBits; //一毫秒内可以产生计数，如果达到该值则等到下一毫秒在进行生成
 
         private static readonly object _lock = new object(); 
-        private static NumberFormater _numberFormater = new NumberFormater(36);
+        private static NumberBaseConvertor _numberFormater = new NumberBaseConvertor(36);
         private static SnowFlake _snowFlake;
 
         #endregion
@@ -108,7 +108,7 @@ namespace Dncy.SnowFlake
         /// 设置数制格式化器
         /// </summary>
         /// <param name="nf"></param>
-        public static void SetNumberFormater(NumberFormater nf)
+        public static void SetNumberFormater(NumberBaseConvertor nf)
         {
             _numberFormater = nf;
         }

@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.Files", "src\Dnc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.LuceneNet", "src\Dncy.Tools.LuceneNet\Dncy.Tools.LuceneNet.csproj", "{3812E772-A926-42BE-917D-0BBBDF4DC41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchEngineAspnetMvcTest", "tests\SearchEngineAspnetMvcTest\SearchEngineAspnetMvcTest.csproj", "{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchEngineAspnetMvcTest", "tests\SearchEngineAspnetMvcTest\SearchEngineAspnetMvcTest.csproj", "{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

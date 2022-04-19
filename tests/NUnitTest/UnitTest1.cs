@@ -85,44 +85,33 @@ namespace NUnitTest
         [Test]
         public void SnowFlake_Test()
         {
+
             var id = SnowFlake.NewLongId;
-            var shortId = id.ToBinary(32);
+
+            var shortId2 = id.ToNewBase(62);
+            var or2 = shortId2.ToNumber(62);
+            
+            var shortId = (-id).ToNewBase(62);
+            var or = shortId.ToNumber(62);
 
 #if !NET40
             
             ConcurrentHashSet<long> longIds = new ConcurrentHashSet<long>();
             ConcurrentHashSet<string> uniqueIds = new ConcurrentHashSet<string>();
 
-            Parallel.ForEach(Enumerable.Range(0, 20000), (i) =>
+            Parallel.ForEach(Enumerable.Range(0, 900000), (i) =>
             {
                 var id = SnowFlake.NewLongId;
-                var id2 = snowFlake_in_datacenter1.GetLongId();
-                if (longIds.Contains(id)||longIds.Contains(id2))
-                {
-                    Assert.Fail();
-                }
-                else
-                {
-                    longIds.Add(id);
-                    longIds.Add(id2);
-                }
-
-                var uniqueId = SnowFlake.NewUniqueId;
-                var id3 = snowFlake_in_datacenter1.GetUniqueId();
-                if (uniqueIds.Contains(uniqueId)||uniqueIds.Contains(id3))
-                {
-                    Assert.Fail();
-                }
-                else
-                {
-                    uniqueIds.Add(uniqueId);
-                    uniqueIds.Add(id3);
-                }
+                longIds.Add(id);
+                var shortId = id.ToNewBase(32);
+                uniqueIds.Add(shortId);
+                var or = shortId.ToNumber(32);
+                Assert.IsTrue(or == id);
             });
-
-            
-            Assert.IsTrue(longIds.Count == 40000);
-            Assert.IsTrue(uniqueIds.Count == 40000);
+            Assert.IsTrue(longIds.Count==900000);
+            Assert.IsTrue(longIds.Count==uniqueIds.Count);
+            Assert.IsTrue(longIds.Count == 900000);
+            Assert.IsTrue(uniqueIds.Count == 900000);
 #endif
         }
 
@@ -171,6 +160,139 @@ namespace NUnitTest
         }
 
 
+        [Test]
+        public void NumberFormat_Text()
+        {
+            //var number = SnowFlake.NewLongId;
+            //Console.WriteLine("10 : " + number.ToString());
+            //Console.WriteLine("2  : " + DecimalToArbitrarySystem(number,  2));
+            //Console.WriteLine("8  : " + DecimalToArbitrarySystem(number,  8));
+            //Console.WriteLine("16 : " + DecimalToArbitrarySystem(number, 16));
+            //Console.WriteLine("26 : " + DecimalToArbitrarySystem(number, 26));
+            //Console.WriteLine("32 : " + DecimalToArbitrarySystem(number, 32));
+            //Console.WriteLine("36 : " + DecimalToArbitrarySystem(number, 36));
+            //Console.WriteLine("52 : " + DecimalToArbitrarySystem(number, 52));
+            //Console.WriteLine("58 : " + DecimalToArbitrarySystem(number, 58));
+            //Console.WriteLine("62 : " + DecimalToArbitrarySystem(number, 62));
+            //Console.WriteLine("------");
+            //number = -number;
+            //Console.WriteLine("10 : " + number.ToString());
+            //Console.WriteLine("2  : " + DecimalToArbitrarySystem(number,  2));
+            //Console.WriteLine("8  : " + DecimalToArbitrarySystem(number,  8));
+            //Console.WriteLine("16 : " + DecimalToArbitrarySystem(number, 16));
+            //Console.WriteLine("26 : " + DecimalToArbitrarySystem(number, 26));
+            //Console.WriteLine("32 : " + DecimalToArbitrarySystem(number, 32));
+            //Console.WriteLine("36 : " + DecimalToArbitrarySystem(number, 36));
+            //Console.WriteLine("52 : " + DecimalToArbitrarySystem(number, 52));
+            //Console.WriteLine("58 : " + DecimalToArbitrarySystem(number, 58));
+            //Console.WriteLine("62 : " + DecimalToArbitrarySystem(number, 62));
+
+
+            
+            Console.WriteLine("from 2  : " + ArbitraryToDecimalSystem("11100000000101101000100010110101111001100000000000000000000000",  2));
+            Console.WriteLine("from 8  : " + ArbitraryToDecimalSystem("340055042657140000000",  8));
+            Console.WriteLine("from 16 : " + ArbitraryToDecimalSystem("3805a22d79800000", 16));
+            Console.WriteLine("from 26 : " + ArbitraryToDecimalSystem("1g7lpa3mk6iaik", 26));
+            Console.WriteLine("from 32 : " + ArbitraryToDecimalSystem("3g1d25lso0000", 32));
+            Console.WriteLine("from 36 : " + ArbitraryToDecimalSystem("uo42209wj474", 36));
+            Console.WriteLine("from 52 : " + ArbitraryToDecimalSystem("rM7d1tJLFzk", 52));
+            Console.WriteLine("from 58 : " + ArbitraryToDecimalSystem("9ls2SzUk9pi", 58));
+            Console.WriteLine("from 62 : " + ArbitraryToDecimalSystem("4OcDuFFnDQk", 62));
+
+
+            Console.WriteLine("from 2  : " + ArbitraryToDecimalSystem("-11100000000101101000100010110101111001100000000000000000000000",  2));
+            Console.WriteLine("from 8  : " + ArbitraryToDecimalSystem("-340055042657140000000",  8));
+            Console.WriteLine("from 16 : " + ArbitraryToDecimalSystem("-3805a22d79800000", 16));
+            Console.WriteLine("from 26 : " + ArbitraryToDecimalSystem("-1g7lpa3mk6iaik", 26));
+            Console.WriteLine("from 32 : " + ArbitraryToDecimalSystem("-3g1d25lso0000", 32));
+            Console.WriteLine("from 36 : " + ArbitraryToDecimalSystem("-uo42209wj474", 36));
+            Console.WriteLine("from 52 : " + ArbitraryToDecimalSystem("-rM7d1tJLFzk", 52));
+            Console.WriteLine("from 58 : " + ArbitraryToDecimalSystem("-9ls2SzUk9pi", 58));
+            Console.WriteLine("from 62 : " + ArbitraryToDecimalSystem("-4OcDuFFnDQk", 62));
+
+        }
+
+
+        /// <summary>
+        /// Converts the given decimal number to the numeral system with the
+        /// specified radix (in the range [2, 62]).
+        /// </summary>
+        /// <param name="decimalNumber">The number to convert.</param>
+        /// <param name="radix">The radix of the destination numeral system
+        /// (in the range [2, 62]).</param>
+        /// <returns></returns>
+        public static string DecimalToArbitrarySystem(long decimalNumber, int radix)
+        {
+            const int BitsInLong = 64;
+            const string Digits = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            if (radix < 2 || radix > Digits.Length)
+                throw new ArgumentException($"The radix must be >= 2 and <= {Digits.Length}");
+
+            if (decimalNumber == 0)
+                return "0";
+
+            int index = BitsInLong - 1;
+            long currentNumber = Math.Abs(decimalNumber);
+            char[] charArray = new char[BitsInLong];
+
+            while (currentNumber != 0)
+            {
+                int remainder = (int)(currentNumber % radix);
+                charArray[index--] = Digits[remainder];
+                currentNumber = currentNumber / radix;
+            }
+
+            string result = new String(charArray, index + 1, BitsInLong - index - 1);
+            if (decimalNumber < 0)
+            {
+                result = "-" + result;
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Converts the given number from the numeral system with the specified
+        /// radix (in the range [2, 62]) to decimal numeral system.
+        /// </summary>
+        /// <param name="number">The arbitrary numeral system number to convert.</param>
+        /// <param name="radix">The radix of the numeral system the given number
+        /// is in (in the range [2, 62]).</param>
+        /// <returns></returns>
+        public static long ArbitraryToDecimalSystem(string number, int radix)
+        {
+            const string Digits = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            if (radix < 2 || radix > Digits.Length)
+                throw new ArgumentException($"The radix must be >= 2 and <= {Digits.Length}");
+
+            if (String.IsNullOrEmpty(number))
+                return 0;
+
+            long result = 0;
+            long multiplier = 1;
+            for (int i = number.Length - 1; i >= 0; i--)
+            {
+                char c = number[i];
+                if (i == 0 && c == '-')
+                {
+                    // This is the negative sign symbol
+                    result = -result;
+                    break;
+                }
+
+                int digit = Digits.IndexOf(c);
+                if (digit == -1)
+                    throw new ArgumentException("Invalid character in the arbitrary numeral system number", "number");
+
+                result += digit * multiplier;
+                multiplier *= radix;
+            }
+
+            return result;
+        }
 
     }
 }

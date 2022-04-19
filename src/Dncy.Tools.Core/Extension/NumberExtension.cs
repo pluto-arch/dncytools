@@ -75,11 +75,11 @@ namespace Dncy.Tools
         /// 十进制转任意进制
         /// </summary>
         /// <param name="num"></param>
-        /// <param name="newBase">进制</param>
+        /// <param name="newBase">进制 [2-62]</param>
         /// <returns></returns>
-        public static string ToBinary(this int num, byte newBase)
+        public static string ToNewBase(this int num, byte newBase)
         {
-            var nf = new NumberFormater(newBase);
+            var nf = new NumberBaseConvertor(newBase);
             return nf.ToString(num);
         }
 
@@ -87,27 +87,12 @@ namespace Dncy.Tools
         /// 十进制转任意进制
         /// </summary>
         /// <param name="num"></param>
-        /// <param name="newBase">进制，最大64</param>
-        /// <param name="offset">偏移量，不能超过newBase</param>
+        /// <param name="newBase">进制 [2-62]</param>
         /// <returns></returns>
-        public static string ToBinary(this long num, byte newBase,byte offset=0)
+        public static string ToNewBase(this long num, byte newBase)
         {
-            var nf = new NumberFormater(newBase, offset);
+            var nf = new NumberBaseConvertor(newBase);
             return nf.ToString(num);
-        }
-
-
-        /// <summary>
-        /// 任意进制转十进制
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="newBase">进制，最大64</param>
-        /// <param name="offset">偏移量，不能超过newBase</param>
-        /// <returns></returns>
-        public static long ToLong(this string value, byte newBase, byte offset = 0)
-        {
-            var nf = new NumberFormater(newBase, offset);
-            return nf.FromString(value);
         }
 
 
