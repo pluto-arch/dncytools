@@ -10,6 +10,7 @@ using Dncy.Tools.LuceneNet.Models;
 
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Cn.Smart;
+using Lucene.Net.Analysis.Util;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Queries;
@@ -458,13 +459,34 @@ namespace Dncy.Tools.LuceneNet
         /// <summary>
         /// 分词
         /// </summary>
-        /// <param name="q"></param>
+        /// <param name="searchText"></param>
+        /// <param name="stopWords">自定义停止词</param>
+        /// <param name="withDefaultStopWord">是否使用默认停止词</param>
         /// <returns></returns>
-        public static List<string> GetKeyWords(string q)
+        public static List<string> GetKeyWords(string searchText, bool withDefaultStopWord=false,List<string> stopWords = null)
         {
             var keyworkds = new List<string>();
-            var analyzer = new SmartChineseAnalyzer(LuceneVersion.LUCENE_48);
-            using var ts = analyzer.GetTokenStream(null, q);
+            CharArraySet stopwords = null;
+            var arrat = new List<string>();
+            if (stopWords!=null&&stopWords.Any())
+            {
+                arrat.AddRange(new CharArraySet(LuceneSearchEngine.LuceneVersion, stopWords, true).ToArray());
+            }
+
+            if (withDefaultStopWord)
+            {
+                var defaultStop = CharArraySet.UnmodifiableSet(
+                    WordlistLoader.GetWordSet(IOUtils.GetDecodingReader(typeof(SmartChineseAnalyzer), "stopwords.txt", Encoding.UTF8), "//", LuceneSearchEngine.LuceneVersion));
+                arrat.AddRange(defaultStop.ToArray());
+            }
+
+            if (arrat.Any())
+            {
+                stopwords = new CharArraySet(LuceneSearchEngine.LuceneVersion, arrat, true);
+            }
+
+            var analyzer = new SmartChineseAnalyzer(LuceneVersion.LUCENE_48,stopwords);
+            using var ts = analyzer.GetTokenStream(null, searchText);
             ts.Reset();
             var ct = ts.GetAttribute<Lucene.Net.Analysis.TokenAttributes.ICharTermAttribute>();
             while (ts.IncrementToken())

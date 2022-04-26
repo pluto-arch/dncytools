@@ -107,6 +107,9 @@ namespace NUnitTest
         public void IndexInfo_Test()
         {
 #if !NETCOREAPP
+
+            var sds=  LuceneSearchEngine.GetKeyWords("asp.net core中托管SPA应用",true,new List<string>{"的","中",","});
+
             using var searchEngine = new LuceneSearchEngine(new SmartChineseAnalyzer(LuceneSearchEngine.LuceneVersion),new LuceneSearchEngineOptions
             {
                 IndexDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,  "luceneIndexs"),
