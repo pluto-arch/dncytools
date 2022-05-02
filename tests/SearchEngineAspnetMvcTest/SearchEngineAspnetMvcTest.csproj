@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Dncy.SnowFlake\Dncy.Tools.SnowFlake.csproj" />
-    <ProjectReference Include="..\..\src\Dncy.Tools.LuceneNet\Dncy.Tools.LuceneNet.csproj" />
   </ItemGroup>
 
 </Project>

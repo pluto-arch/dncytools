@@ -23,10 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.Collection.Gener
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.Files", "src\Dncy.Tools.Files\Dncy.Tools.Files.csproj", "{C72C0428-9AC2-4E98-998C-A072971FA040}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.LuceneNet", "src\Dncy.Tools.LuceneNet\Dncy.Tools.LuceneNet.csproj", "{3812E772-A926-42BE-917D-0BBBDF4DC41A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchEngineAspnetMvcTest", "tests\SearchEngineAspnetMvcTest\SearchEngineAspnetMvcTest.csproj", "{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,14 +61,6 @@ Global
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3812E772-A926-42BE-917D-0BBBDF4DC41A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3812E772-A926-42BE-917D-0BBBDF4DC41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3812E772-A926-42BE-917D-0BBBDF4DC41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3812E772-A926-42BE-917D-0BBBDF4DC41A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,8 +74,6 @@ Global
 		{BEEDBEDD-B6B8-44D0-B8B6-16D237BE0B49} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
 		{4B1B9D44-37B8-4948-A1C2-8AC3B1C113F7} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
 		{C72C0428-9AC2-4E98-998C-A072971FA040} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
-		{3812E772-A926-42BE-917D-0BBBDF4DC41A} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
-		{FEF994F2-3F15-4BD1-8575-AA0E4DFB4F22} = {051F1028-8EC4-403B-80E9-018846CBA1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B705EDB-7324-4171-BC16-139B1E3ABA46}

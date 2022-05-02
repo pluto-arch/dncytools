@@ -3,6 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+
+#if  NET5_0||NET6_0
+using System.ComponentModel.DataAnnotations;
+#endif
+
 using System.Linq;
 using System.Reflection;
 
@@ -115,6 +120,7 @@ namespace Dncy.Tools
             return _enumTypeDict.ContainsKey(typeName) ? _enumTypeDict[typeName] : null;
         }
 
+#if NET5_0||NET6_0
         /// <summary>
         /// 根据枚举成员获取Display的属性Name
         /// </summary>
@@ -125,19 +131,15 @@ namespace Dncy.Tools
             var memberInfos = type.GetMember(en.ToString()); //获取成员
             if (memberInfos.Any())
             {
-                if (memberInfos[0].GetCustomAttributes(typeof(DisplayNameAttribute), false) is DisplayNameAttribute[] attrs && attrs.Length > 0)
+                if (memberInfos[0].GetCustomAttributes(typeof(DisplayAttribute), false) is DisplayAttribute[] attrs && attrs.Length > 0)
                 {
-                    return attrs[0].DisplayName;
-                }
-
-                if (memberInfos[0].GetCustomAttributes(typeof(DescriptionAttribute), false) is DescriptionAttribute[] attrs2 && attrs2.Length > 0)
-                {
-                    return attrs2[0].Description; 
+                    return attrs[0].Name!;
                 }
             }
 
             return en.ToString();
         }
+#endif
 
         private static ConcurrentDictionary<string, Type> LoadEnumTypeDict(Assembly assembly)
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using Dncy.SnowFlake;
 using Dncy.Tools;
@@ -145,19 +146,28 @@ namespace NUnitTest
             Console.WriteLine(encryptStr);
         }
 
-
+#if  NET6_0
         public enum Demo
         {
-            A=1,
-            B=2,
-            C=3
+            [System.ComponentModel.Description("123123")]
+            A = 1,
+            [System.ComponentModel.DataAnnotations.Display(Name = "ÒÑÍË»Ø")]
+            B = 2,
+            C = 3
         }
         [Test]
         public void EnumExt_Text()
         {
             var ddd = typeof(Demo).GetNameValueDictionary();
+
+            var sdsd = Demo.A.GetDescription();
+
+            var sdsd22 = Demo.A.GetDisplay();
+
             Assert.IsTrue(ddd.Count == 3);
         }
+#endif
+
 
 
         [Test]

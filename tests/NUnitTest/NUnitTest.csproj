@@ -26,7 +26,6 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net462' ">
 		<ProjectReference Include="..\..\src\Dncy.Tools.RichText\Dncy.Tools.RichText.csproj" />
-		<ProjectReference Include="..\..\src\Dncy.Tools.LuceneNet\Dncy.Tools.LuceneNet.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
