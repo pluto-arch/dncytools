@@ -11,11 +11,6 @@ namespace Dncy.Tools.LuceneNet
         public IList<T> Results { get; set; }
 
         /// <summary>
-        /// 耗时
-        /// </summary>
-        public long Elapsed { get; set; }
-
-        /// <summary>
         /// 总条数
         /// </summary>
         public int TotalHits { get; set; }

@@ -524,5 +524,6 @@ namespace Dncy.Tools
         {
             return Math.Round(s.TryConvertTo(defaultValue), round);
         }
+        
     }
 }
