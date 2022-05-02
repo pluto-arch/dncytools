@@ -4,6 +4,7 @@
 # Rider ignored files
 /projectSettingsUpdater.xml
 /contentModel.xml
+/projectSettingsUpdater.xml
 /.idea.dncytools.iml
 /modules.xml
 # Editor-based HTTP Client requests
