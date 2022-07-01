@@ -16,10 +16,6 @@ public class ConstructorResolveDependencyGenerator : ISourceGenerator
     /// <inheritdoc />
     public void Initialize(GeneratorInitializationContext context)
     {
-        if (!Debugger.IsAttached)
-        {
-            Debugger.Launch();
-        }
         context.RegisterForSyntaxNotifications(() => new TypeSyntaxReceiver());
     }
 
@@ -119,7 +115,7 @@ public class ConstructorResolveDependencyGenerator : ISourceGenerator
         var typeName = typeSymbol.Name;
         var @namespace = typeSymbol.GetNameSpzce();
         bool hasBaseClas = false;
-        var baseFields = new HashSet<(string, string)>(new FieldComparer());
+        var baseFields = new HashSet<string>();
         if (typeSymbol.BaseType is {TypeKind: TypeKind.Class, Constructors: { Length : > 0}})
         {
             hasBaseClas= true;
@@ -135,7 +131,7 @@ public class ConstructorResolveDependencyGenerator : ISourceGenerator
                     {
                         var el = ($"{field.Type.ToString()} _{field.Name}", field.Name);
                         fields.Add(el);
-                        baseFields.Add(el);
+                        baseFields.Add($"_{field.Name}");
                     }
                 }
             }
@@ -153,10 +149,7 @@ public class ConstructorResolveDependencyGenerator : ISourceGenerator
         if (hasBaseClas)
         {
             sb.AppendLine($@":base(");
-            foreach (var item in baseFields)
-            {
-                sb.Append($"{item.Item2}=_{item.Item2};");
-            }
+            sb.Append(string.Join(",", baseFields.Select(x => x)));
             sb.AppendLine($@")");
         }
       
@@ -164,7 +157,10 @@ public class ConstructorResolveDependencyGenerator : ISourceGenerator
         sb.AppendLine("{");
         foreach (var memSymbol in fields)
         {
-            sb.Append($"{memSymbol.Item2}=_{memSymbol.Item2};");
+            if (!baseFields.Contains($"_{memSymbol.Item2}"))
+            {
+                sb.Append($"{memSymbol.Item2}=_{memSymbol.Item2};");
+            }
         }
 
         sb.AppendLine("}");
