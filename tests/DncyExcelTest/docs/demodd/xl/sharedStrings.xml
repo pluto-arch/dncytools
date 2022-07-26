@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="131" uniqueCount="81">
+    <si>
+        <t>镇、街道名称</t>
+    </si>
+    <si>
+        <r>
+            <t xml:space="preserve">村 </t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="Calibri"/>
+                <family val="2"/>
+            </rPr>
+            <t xml:space="preserve"></t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t xml:space="preserve">委 </t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="Calibri"/>
+                <family val="2"/>
+            </rPr>
+            <t xml:space="preserve"></t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>会</t>
+        </r>
+    </si>
+    <si>
+        <t>居委会</t>
+    </si>
+    <si>
+        <t>数量</t>
+    </si>
+    <si>
+        <r>
+            <t xml:space="preserve">名 </t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="Calibri"/>
+                <family val="2"/>
+            </rPr>
+            <t xml:space="preserve"></t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>称</t>
+        </r>
+    </si>
+    <si>
+        <t>名称</t>
+    </si>
+    <si>
+        <t>佛</t>
+    </si>
+    <si>
+        <r>
+            <t>赵朱、石楼、起鸣、晓联、稽亭、和溪、湖干、方前、桥西、楼村、前王、东山、田心村、光明、雅西、鲁雅、后塘、新店、毛陈、后阳、下前王、后力山、塘下洋、侯芹、泽塘、葛仙、金山、上村、寺口、芦塘下、花园口、新塘西、塔山、云山、陈村、钟村、继成、石壁、剡溪、南王店、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>南江、寺前街、张宅、宝丹、朝阳、翁靖、兴盛、舟墟湖、倍磊、南埠头、坑口、团力、平望、龙溪</t>
+        </r>
+    </si>
+    <si>
+        <t>江北、蟠龙、大成、渡磬、大士、云黄、吴溪</t>
+    </si>
+    <si>
+        <t>堂</t>
+    </si>
+    <si>
+        <t>镇</t>
+    </si>
+    <si>
+        <t>赤</t>
+    </si>
+    <si>
+        <r>
+            <t>柏峰、后山、溪西、巽村、塘边、雅端、东朱、石城、乔亭、鱼曹头、南青口、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>神坛</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、午山干、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>雅治街</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、赤岸一村、赤岸二村、赤岸三村、赤岸四村、田沿、新樟、南杨村、上吴、尚阳、前川、朱店、湾塘、五柳、莱山、大桥、官余、慈溪、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>羊印、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>后金宅、下水碓、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>清溪</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、三丫塘、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>三角毛店、八石、薛乔、双峰、南旺溪、山盆</t>
+        </r>
+    </si>
+    <si>
+        <t>水岸</t>
+    </si>
+    <si>
+        <t>岸</t>
+    </si>
+    <si>
+        <t>义</t>
+    </si>
+    <si>
+        <r>
+            <t>白塘、山景、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>鲍宅</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、后张、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>张家</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、吴村、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>陇头朱、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>西田、青肃、上宅、车路、上滕、下店、下滕、先田、西楼、缸窑、何店、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>前屋</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、上胡、叶前、枧畴、杭畴、古亭塘、龙华院、雅文楼、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>石塔一、石塔二、王阡</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、王莲塘、铜山前、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>白塔塘、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>畈田朱、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>早溪塘、包西塘、铜山湖、江岸、五联</t>
+        </r>
+    </si>
+    <si>
+        <t>陈家、义亭、荷店塘、旺吴桥、义亭车站</t>
+    </si>
+    <si>
+        <t>亭</t>
+    </si>
+    <si>
+        <t>上</t>
+    </si>
+    <si>
+        <r>
+            <t>岩口、余车、东余、云门、祥贝、樟村、五塘、宅山、寺西、周村、斯何、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>溪华</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、水碓张、后溪、上楼宅、贾伯塘、红桥头、富塘下、下楼宅、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>金傅宅、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>上溪一村、上溪二村、上溪三村、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>黄山</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t xml:space="preserve">、荷市、新民、和平、南平、沈宅、王村、下宅、水碓、溪 </t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="Calibri"/>
+                <family val="2"/>
+            </rPr>
+            <t xml:space="preserve"></t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>田、寺口蒋、苦竹塘、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>萧皇塘</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、寺口陈、毛塘楼、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>桃花坞、双溪岩、潜溪、三和、同心、五星社、馨苑</t>
+        </r>
+    </si>
+    <si>
+        <t>上潘、塘西</t>
+    </si>
+    <si>
+        <t>溪</t>
+    </si>
+    <si>
+        <t>苏</t>
+    </si>
+    <si>
+        <r>
+            <t>新院、蒋宅、后店、马丁、徐丰、立塘、密溪、洪流、东青、杜村、邢宅、新乐、同春、同裕、三联、联合、上楼、青春、翁界、下屋、溪北、花厅、殿下、龙华、湾头下、齐山楼、塘里蒋、里宅、高岭、下陈、新厅、上甘、范家、畈田、上西陶、后山坞、塘头应、西山下、上山下、东陶、东洪、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>六都、苏港</t>
+        </r>
+    </si>
+    <si>
+        <t>胡宅、十和里、</t>
+    </si>
+    <si>
+        <t>东风、龙祈、苏福</t>
+    </si>
+    <si>
+        <t>大</t>
+    </si>
+    <si>
+        <r>
+            <t>团结、杜桥、红旗、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>凰升塘、北金山、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>大陈一村、大陈二村、大陈三村、朝塘、婆姆、西岸、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>善坑</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、马畈、春林、溪后、大畈、楂林一村、楂林二村、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>李孟宅</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、上坑仁、大岭下、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>杜门</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、红峰、宦塘、义北、灯塔、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>东联</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>北山府</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、立山黄、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>八里桥头</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>众拥</t>
+        </r>
+    </si>
+    <si>
+        <t>后畈</t>
+    </si>
+    <si>
+        <t>陈</t>
+    </si>
+    <si>
+        <t>稠</t>
+    </si>
+    <si>
+        <t>绣湖、江滨、胜利、通惠、向阳、市场、车站、宾王、孝子祠、下车门、词林、银苑、雪峰</t>
+    </si>
+    <si>
+        <t>城</t>
+    </si>
+    <si>
+        <t>街</t>
+    </si>
+    <si>
+        <t>道</t>
+    </si>
+    <si>
+        <t>福</t>
+    </si>
+    <si>
+        <t>洋塘桥头、杏园、尚经、洛店、罗店、全宅、清塘、九如堂、下娄店、官端前、东岗山、东象山、立碑塘、白岸头、八脚坎、下华店、前黄宅、新塘下、堂阁、下沈、西界、前上周、森屋、前店、溪前、下兆、殿前、过溪楼、下西陶、祖科塘、西罗店</t>
+    </si>
+    <si>
+        <t>长春、福田、诚信、银海、联港、荷塘、商城、下骆宅、振兴、兴隆、宗宅、物华、通福</t>
+    </si>
+    <si>
+        <t>田</t>
+    </si>
+    <si>
+        <t>江</t>
+    </si>
+    <si>
+        <t>金星、徐村、东上、许宅、后园、供店、前流、永和、红星、江南、西赵、毛店、后房、马村、潘村、张村、毛店山脚、平畴、下湾、候儿村、新兴、大元、青南、西塘、沙溪、南山坑、上麻车、下麻车、青岩傅、大湖头、船埠头、白莲塘、观音塘、石塔头、东新屋、下傅</t>
+    </si>
+    <si>
+        <t>商苑、临江、江南、鸡鸣山、东洲、南苑、五爱、塔下洲、南山、盘溪、钓鱼矶、望湖、黎明湖、商博、东苑、流赐</t>
+    </si>
+    <si>
+        <t>东</t>
+    </si>
+    <si>
+        <r>
+            <t>诸宅、象山、官塘、新村、喻宅、春联、柯村、江湾、新屋、下柳、高庚、崇山、红联、后申塘、下何宅、水冰塘、东王界、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>西王界</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、杨梅院、犁头山、羊角山、官塘下、上崇山、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>金村</t>
+        </r>
+    </si>
+    <si>
+        <r>
+            <t>兴业、凤凰、锦都、松门里、永祥、昌德、高新</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>、</t>
+        </r>
+        <r>
+            <rPr>
+                <b/>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>黎明、香溪、富港、杨村</t>
+        </r>
+    </si>
+    <si>
+        <t>北</t>
+    </si>
+    <si>
+        <t>幸福、建设、迎宾、复兴、四季、丹溪、望道、拥军、春晗、稠山、爱民、凌云、柳青、经发、崇德、花园</t>
+    </si>
+    <si>
+        <t>苑</t>
+    </si>
+    <si>
+        <t>后</t>
+    </si>
+    <si>
+        <r>
+            <t>全备、寺前、洪家、后余、上周、李祖、岭脚、下万、陈宅、大傅宅、岩南、上金、苏街、吴宅、下旺、俊塘、坞灶、广口、湖门、新华、后毛店、马踏石、马交塘、西关田、深塘下、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>方塘、稠岩、余店、金鹤、前后傅</t>
+        </r>
+    </si>
+    <si>
+        <r>
+            <t>金城、洪深、起航、北站、九州、群英、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>黄龙、宅二</t>
+        </r>
+    </si>
+    <si>
+        <t>宅</t>
+    </si>
+    <si>
+        <t>廿</t>
+    </si>
+    <si>
+        <t>深塘、李宅、埠头、何宅、后义、陶店、王店、东莲塘、葛塘、张思、派塘、西澄、华溪、联五、里兆、西京、李塘、泉塘、大岭、里忠、群益、塘下店、郑山头、下朱宅、张家园、活鱼塘、楼山塘、屏石头</t>
+    </si>
+    <si>
+        <r>
+            <t>金麟、拨浪鼓、思源、廿三里、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>后乐、东陈</t>
+        </r>
+    </si>
+    <si>
+        <t>三</t>
+    </si>
+    <si>
+        <t>里</t>
+    </si>
+    <si>
+        <r>
+            <t>五一、六一、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>七一、八一、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>枫溪、五星、毛店桥头、西俞、山翁、于宅、殿口、蒋母塘、益公山、夏迹塘、井头徐、新双溪、夏演、溪干、桥头、夏楼村、后叶、上杨村、流大塘、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>何斯路、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>分水塘、石明堂、何泮山、</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color rgb="FFFF0000"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>龙山、流里塘、新港</t>
+        </r>
+    </si>
+    <si>
+        <t>陆港</t>
+    </si>
+    <si>
+        <t>西</t>
+    </si>
+    <si>
+        <t>合 计</t>
+    </si>
+    <si>
+        <r>
+            <t>其中城市社区</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="Calibri"/>
+                <family val="2"/>
+            </rPr>
+            <t>95</t>
+        </r>
+        <r>
+            <rPr>
+                <sz val="10.5"/>
+                <color theme="1"/>
+                <rFont val="宋体"/>
+                <charset val="134"/>
+            </rPr>
+            <t>个</t>
+        </r>
+    </si>
+    <si>
+        <t>镇街编号</t>
+    </si>
+    <si>
+        <t>村委会</t>
+    </si>
+    <si>
+        <t>佛堂镇</t>
+    </si>
+    <si>
+        <t>赵朱、石楼、起鸣、晓联、稽亭、和溪、湖干、方前、桥西、楼村、前王、东山、田心村、光明、雅西、鲁雅、后塘、新店、毛陈、后阳、下前王、后力山、塘下洋、侯芹、泽塘、葛仙、金山、上村、寺口、芦塘下、花园口、新塘西、塔山、云山、陈村、钟村、继成、石壁、剡溪、南王店、南江、寺前街、张宅、宝丹、朝阳、翁靖、兴盛、舟墟湖、倍磊、南埠头、坑口、团力、平望、龙溪</t>
+    </si>
+    <si>
+        <t>赤岸镇</t>
+    </si>
+    <si>
+        <t>义亭镇</t>
+    </si>
+    <si>
+        <t>上溪镇</t>
+    </si>
+    <si>
+        <t>苏溪镇</t>
+    </si>
+    <si>
+        <t>胡宅、十和里、东风、龙祈、苏福</t>
+    </si>
+    <si>
+        <t>大陈镇</t>
+    </si>
+    <si>
+        <t>稠城街道</t>
+    </si>
+    <si>
+        <t>福田街道</t>
+    </si>
+    <si>
+        <t>江东街道</t>
+    </si>
+    <si>
+        <t>稠江街道</t>
+    </si>
+    <si>
+        <t>北苑街道</t>
+    </si>
+    <si>
+        <t>后宅街道</t>
+    </si>
+    <si>
+        <t>廿三里街道</t>
+    </si>
+    <si>
+        <t>城西街道</t>
+    </si>
+</sst>
