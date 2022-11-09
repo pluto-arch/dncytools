@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.Collection.Gener
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tools.Files", "src\Dncy.Tools.Files\Dncy.Tools.Files.csproj", "{C72C0428-9AC2-4E98-998C-A072971FA040}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaHandleTest", "tests\MediaHandleTest\MediaHandleTest.csproj", "{0E4D3545-5DE4-4354-90D2-2D336FC3A680}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72C0428-9AC2-4E98-998C-A072971FA040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4D3545-5DE4-4354-90D2-2D336FC3A680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4D3545-5DE4-4354-90D2-2D336FC3A680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4D3545-5DE4-4354-90D2-2D336FC3A680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4D3545-5DE4-4354-90D2-2D336FC3A680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{BEEDBEDD-B6B8-44D0-B8B6-16D237BE0B49} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
 		{4B1B9D44-37B8-4948-A1C2-8AC3B1C113F7} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
 		{C72C0428-9AC2-4E98-998C-A072971FA040} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
+		{0E4D3545-5DE4-4354-90D2-2D336FC3A680} = {051F1028-8EC4-403B-80E9-018846CBA1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B705EDB-7324-4171-BC16-139B1E3ABA46}
