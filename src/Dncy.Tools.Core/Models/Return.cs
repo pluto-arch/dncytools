@@ -54,7 +54,6 @@ namespace Dncy.Tools.Core
     /// 方法返回值包装器
     /// </summary>
     /// <remarks>避免方法执行尽用抛异常方式进行错误返回</remarks>
-    /// <typeparam name="E">错误信息类型</typeparam>
     public record ReturnVoid
     {
         private readonly bool _success;
@@ -72,9 +71,12 @@ namespace Dncy.Tools.Core
         }
         public static ReturnVoid Successe()
         {
-            return new(default, true);
+            return new(default!, true);
         }
 
         public static implicit operator ReturnVoid(string e) => new(e, false);
+
+        public R Match<R>(Func<R> success, Func<string, R> failure)
+            => _success ? success() : failure(error);
     }
 }
