@@ -20,7 +20,7 @@ namespace NUnitTest
 
         }
 
-        private const string path = @"C:\Users\62052\Pictures\Camera Roll\Crusader_f.png";
+        private const string path = @"C:\Users\62052\Pictures\Saved Pictures\wallhaven-lq7vor.png";
         
         [Test]
         public void Test_Image_CutForSquare()
@@ -36,7 +36,7 @@ namespace NUnitTest
         {
             var savePath = AppDomain.CurrentDomain.BaseDirectory + "\\CutForCustom.png";
             using var ms = new FileStream(path, FileMode.Open);
-            ms.CutForCustom(savePath,1920,1080,0);
+            ms.CutForCustom(savePath,720,540,100);
         }
 
         

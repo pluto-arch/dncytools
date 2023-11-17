@@ -16,5 +16,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Objects\" />
+	  <Folder Include="Contracts\" />
 	</ItemGroup>
 </Project>
