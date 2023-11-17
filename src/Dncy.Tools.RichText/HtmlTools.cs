@@ -2,16 +2,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Ganss.Xss;
 
 #if NETCOREAPP || (NET46_OR_GREATER&&!NET462)
 using AngleSharp;
 using AngleSharp.Dom;
-using Ganss.XSS;
 #endif
 
-#if NET462
-using HtmlAgilityPack;
-#endif
 
 namespace Dncy.Tools.RichText
 {

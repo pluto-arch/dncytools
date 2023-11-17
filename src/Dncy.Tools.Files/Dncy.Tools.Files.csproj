@@ -1,37 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net40;net45;net451;net452;net46;net461;net50;net60;net70</TargetFrameworks>
+		<TargetFrameworks>net461;net462;net50;net60;net70;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>文件操作</Description>
 		<Company>dotnetydd</Company>
 		<Authors>dotnetydd</Authors>
+		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
+		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
 	</PropertyGroup>
 
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-	  <PackageReference Include="SharpCompress">
-	    <Version>0.31.0</Version>
-	  </PackageReference>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
-	  <PackageReference Include="SharpCompress">
-	    <Version>0.31.0</Version>
-	  </PackageReference>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
-	  <PackageReference Include="SharpCompress">
-	    <Version>0.31.0</Version>
-	  </PackageReference>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net70'">
+	<ItemGroup>
 		<PackageReference Include="SharpCompress">
-			<Version>0.31.0</Version>
+			<Version>0.34.2</Version>
 		</PackageReference>
 	</ItemGroup>
 

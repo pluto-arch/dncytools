@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net5.0;net40;net45;net451;net452;net46;net461;net462</TargetFrameworks>
+		<TargetFrameworks>net40;net45;net451;net452;net46;net461;net462;net50;net60;net70;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<LangVersion>latest</LangVersion>
@@ -23,10 +23,6 @@
 		<ProjectReference Include="..\..\src\Dncy.Tools.Collection.Generic\Dncy.Tools.Collection.Generic.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
 		<ProjectReference Include="..\..\src\Dncy.Tools.Media\Dncy.Tools.Media.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net462' ">
-		<ProjectReference Include="..\..\src\Dncy.Tools.RichText\Dncy.Tools.RichText.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net40;net45;net451;net452;net46;net461;net50;net60;net70</TargetFrameworks>
+		<TargetFrameworks>net40;net45;net451;net452;net46;net461;net462;net50;net60;net70;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<Company>dotnetydd</Company>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>集合工具</Description>
 		<Authors>dotnetydd</Authors>
+		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
+		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
 	</PropertyGroup>
 
 	<ItemGroup>
