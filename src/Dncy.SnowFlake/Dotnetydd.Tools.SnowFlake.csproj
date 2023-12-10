@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dncy.Tools.Core\Dncy.Tools.Core.csproj" />
+    <ProjectReference Include="..\Dncy.Tools.Core\Dotnetydd.Tools.Core.csproj" />
   </ItemGroup>
 
 
