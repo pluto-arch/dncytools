@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.RandomSelector
 {
     public abstract class SelectorBase<T>
     {

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Dotnetydd.Tools.Core.Extension;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Encode
 {
     /// <summary>
     /// 得到随机安全码（哈希加密）。
@@ -13,7 +14,7 @@ namespace Dncy.Tools
         /// 得到随机哈希加密字符串
         /// </summary>
         /// <returns>随机哈希加密字符串</returns>
-        public static string GetSecurity(this Random r) => HashEncoding(r.StrictNext().ToString());
+        public static string GetSecurity(this Random r) => r.StrictNext().ToString().HashEncoding();
 
         /// <summary>
         /// 哈希加密一个字符串

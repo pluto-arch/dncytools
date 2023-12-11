@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dncy.Tools
+﻿namespace Dotnetydd.Tools.Core.Date
 {
     public struct DateInfoStruct
     {

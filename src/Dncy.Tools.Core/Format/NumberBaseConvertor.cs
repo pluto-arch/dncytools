@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Format
 {
     /// <summary>
     /// 数制转换器
@@ -51,7 +47,7 @@ namespace Dncy.Tools
             radix = @base;
         }
 
-        
+
         /// <summary>
         /// 数值转对应进制
         /// </summary>
@@ -80,7 +76,7 @@ namespace Dncy.Tools
                 currentNumber = currentNumber / radix;
             }
 
-            string result = new String(charArray, index + 1, BitsInLong - index - 1);
+            string result = new string(charArray, index + 1, BitsInLong - index - 1);
             if (decimalNumber < 0)
             {
                 result = "-" + result;
@@ -102,7 +98,7 @@ namespace Dncy.Tools
             if (radix < 2 || radix > Digits.Length)
                 throw new ArgumentException($"The radix must be >= 2 and <= {Digits.Length}");
 
-            if (String.IsNullOrEmpty(number))
+            if (string.IsNullOrEmpty(number))
                 return 0;
 
             long result = 0;

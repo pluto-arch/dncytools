@@ -1,7 +1,8 @@
-﻿
+﻿using Dotnetydd.Tools.Core.Objects;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
-namespace System.Collections.Generic
+namespace Dotnetydd.Tools.Core.Collection
 {
     public class NullableDictionary<TKey, TValue> : Dictionary<NullObject<TKey>, TValue>
     {

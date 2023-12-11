@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class EnumExtension
     {
@@ -113,7 +113,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static Type? GetEnumType(Assembly assembly, string typeName)
         {
-            if (_enumTypeDict==null)
+            if (_enumTypeDict == null)
             {
                 _enumTypeDict ??= LoadEnumTypeDict(assembly);
             }
@@ -152,7 +152,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static Dictionary<string, int> GetDescriptionAndValue(this Type enumType)
         {
-            return Enum.GetValues(enumType).Cast<object>().ToDictionary(e => GetDescription(e as Enum), e => (int)e);
+            return Enum.GetValues(enumType).Cast<object>().ToDictionary(e => (e as Enum).GetDescription(), e => (int)e);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Dncy.Tools
         /// <param name="value"></param>
         /// <param name="enumType"></param>
         /// <returns></returns>
-        public static String ToEnumString(this int value, Type enumType)
+        public static string ToEnumString(this int value, Type enumType)
         {
             return GetEnumStringFromEnumValue(enumType)[value.ToString()];
         }
@@ -198,7 +198,7 @@ namespace Dncy.Tools
             {
                 if (field.FieldType.IsEnum)
                 {
-                    var strValue = ( (int)enumType.InvokeMember(field.Name, BindingFlags.GetField, null, null, null) ).ToString();
+                    var strValue = ((int)enumType.InvokeMember(field.Name, BindingFlags.GetField, null, null, null)).ToString();
                     nvc.Add(strValue, field.Name);
                 }
             }

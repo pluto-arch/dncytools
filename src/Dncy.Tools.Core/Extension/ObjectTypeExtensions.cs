@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class ObjectTypeExtensions
     {
@@ -10,7 +10,7 @@ namespace Dncy.Tools
         {
             return possibleTypes.Any(possibleType => possibleType == type);
         }
-       
+
         public static bool IsAssignableTo(this Type type, Type baseType)
         {
             return baseType.IsAssignableFrom(type);
@@ -39,13 +39,13 @@ namespace Dncy.Tools
             constructedType = new[] { type }
                 .Union(type.GetInheritanceChain())
                 .Union(type.GetInterfaces())
-                #if NET40
+#if NET40
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == genericType);
-                #else
+#else
                 .FirstOrDefault(i => i.IsConstructedGenericType && i.GetGenericTypeDefinition() == genericType);
-                #endif
+#endif
 
-            return ( constructedType != null );
+            return constructedType != null;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static bool IsReferenceOrNullableType(this Type type)
         {
-            return ( !type.IsValueType || Nullable.GetUnderlyingType(type) != null );
+            return !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
         }
 
 

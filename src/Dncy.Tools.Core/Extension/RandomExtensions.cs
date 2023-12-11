@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class RandomExtensions
     {

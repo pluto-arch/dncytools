@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class StreamExtension
     {
-        public static byte[] ToByteArray(this Stream stream,int bufferSize=10240)
+        public static byte[] ToByteArray(this Stream stream, int bufferSize = 10240)
         {
             using (var memoryStream = new MemoryStream())
             {

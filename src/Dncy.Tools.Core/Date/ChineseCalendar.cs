@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Date
 {
     /// <summary>
     /// 中国农历类 支持 1900.1.31日起至 2069.12.31日止的数据
@@ -430,7 +429,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         private int GetChineseLeapMonthDays(int year)
         {
-            return GetChineseLeapMonth(year) != 0 ? ( LunarDateArray[year - MinYear] & 0x10000 ) != 0 ? 30 : 29 : 0;
+            return GetChineseLeapMonth(year) != 0 ? (LunarDateArray[year - MinYear] & 0x10000) != 0 ? 30 : 29 : 0;
         }
 
         /// <summary>
@@ -483,7 +482,7 @@ namespace Dncy.Tools
             //计算天干
             var ts = Date - GanZhiStartDay;
             var i = ts.Days % 60;
-            var indexGan = ( ( i % 10 + 1 ) * 2 - 1 ) % 10 - 1;
+            var indexGan = ((i % 10 + 1) * 2 - 1) % 10 - 1;
             var tmpGan = TianGan.Substring(indexGan) + TianGan.Substring(0, indexGan + 2);
             return tmpGan[offset].ToString() + DiZhi[offset];
         }
@@ -530,7 +529,7 @@ namespace Dncy.Tools
             {
                 return default;
             }
-            int.TryParse(n.ToString(),out int number);
+            int.TryParse(n.ToString(), out int number);
             return HzNum[number].ToString();
         }
 
@@ -548,7 +547,7 @@ namespace Dncy.Tools
             }
 
             int bit = 1 << bitpostion;
-            return ( num & bit ) != 0;
+            return (num & bit) != 0;
         }
 
         /// <summary>
@@ -599,14 +598,14 @@ namespace Dncy.Tools
                     int firWeekDays = 7 - ConvertDayOfWeek(firstDay.DayOfWeek) + 1; //计算第一周剩余天数
                     if (i > day)
                     {
-                        if (( week - 1 ) * 7 + day + firWeekDays == date.Day)
+                        if ((week - 1) * 7 + day + firWeekDays == date.Day)
                         {
                             result = true;
                         }
                     }
                     else
                     {
-                        if (day + firWeekDays + ( week - 2 ) * 7 == date.Day)
+                        if (day + firWeekDays + (week - 2) * 7 == date.Day)
                         {
                             result = true;
                         }
@@ -696,7 +695,7 @@ namespace Dncy.Tools
                 foreach (DateInfoStruct sh in SolarHolidayInfo)
                 {
                     var end = sh.Recess > 0 ? sh.Day + sh.Recess - 1 : sh.Day + sh.Recess;
-                    if (( sh.Month == Date.Month ) && Date.Day >= sh.Day && Date.Day <= end)
+                    if (sh.Month == Date.Month && Date.Day >= sh.Day && Date.Day <= end)
                     {
                         tempStr = sh.HolidayName;
                         break;
@@ -729,7 +728,7 @@ namespace Dncy.Tools
                 foreach (var date in SolarHolidayInfo)
                 {
                     var end = date.Recess > 0 ? date.Day + date.Recess - 1 : date.Day + date.Recess;
-                    if (( date.Month == Date.Month ) && Date.Day >= date.Day && Date.Day <= end && date.Recess > 0)
+                    if (date.Month == Date.Month && Date.Day >= date.Day && Date.Day <= end && date.Recess > 0)
                     {
                         isHoliday = true;
                         break;
@@ -839,7 +838,7 @@ namespace Dncy.Tools
                 var ts = Date - ChineseConstellationReferDay;
                 var offset = ts.Days;
                 var modStarDay = offset % 28;
-                return ( modStarDay >= 0 ? ChineseConstellationName[modStarDay] : ChineseConstellationName[27 + modStarDay] );
+                return modStarDay >= 0 ? ChineseConstellationName[modStarDay] : ChineseConstellationName[27 + modStarDay];
             }
         }
 
@@ -890,10 +889,10 @@ namespace Dncy.Tools
                     case 30:
                         return "三十";
                     default:
-                        return ( NStr2[ChineseDay / 10] + NStr1[ChineseDay % 10].ToString() );
+                        return NStr2[ChineseDay / 10] + NStr1[ChineseDay % 10].ToString();
                 }
             }
-        } 
+        }
 
         /// <summary>
         /// 农历的月份
@@ -964,7 +963,7 @@ namespace Dncy.Tools
                 var y = Date.Year;
                 for (int i = 1; i <= 24; i++)
                 {
-                    var num = 525948.76 * ( y - 1900 ) + STermInfo[i - 1];
+                    var num = 525948.76 * (y - 1900) + STermInfo[i - 1];
                     var newDate = baseDateAndTime.AddMinutes(num);
                     if (newDate.DayOfYear != Date.DayOfYear)
                     {
@@ -991,7 +990,7 @@ namespace Dncy.Tools
                 var y = Date.Year;
                 for (int i = 24; i >= 1; i--)
                 {
-                    var num = 525948.76 * ( y - 1900 ) + STermInfo[i - 1];
+                    var num = 525948.76 * (y - 1900) + STermInfo[i - 1];
                     var newDate = baseDateAndTime.AddMinutes(num);
                     if (newDate.DayOfYear < Date.DayOfYear)
                     {
@@ -1016,7 +1015,7 @@ namespace Dncy.Tools
                 var y = Date.Year;
                 for (int i = 1; i <= 24; i++)
                 {
-                    var num = 525948.76 * ( y - 1900 ) + STermInfo[i - 1];
+                    var num = 525948.76 * (y - 1900) + STermInfo[i - 1];
                     var newDate = baseDateAndTime.AddMinutes(num);
                     if (newDate.DayOfYear > Date.DayOfYear)
                     {
@@ -1142,7 +1141,7 @@ namespace Dncy.Tools
         {
             get
             {
-                int i = ( ChineseYear - GanZhiStartYear ) % 60; //计算干支
+                int i = (ChineseYear - GanZhiStartYear) % 60; //计算干支
                 var tempStr = TianGan[i % 10] + DiZhi[i % 12].ToString() + "年";
                 return tempStr;
             }
@@ -1169,9 +1168,9 @@ namespace Dncy.Tools
                 var zhi = DiZhi[zhiIndex - 1].ToString();
                 //根据当年的干支年的干来计算月干的第一个
                 int ganIndex = 1;
-                int i = ( ChineseYear - GanZhiStartYear ) % 60; //计算干支
+                int i = (ChineseYear - GanZhiStartYear) % 60; //计算干支
 
-                switch (( i % 10 ))
+                switch (i % 10)
                 {
                     case 0:
                         ganIndex = 3; //甲
@@ -1187,7 +1186,7 @@ namespace Dncy.Tools
                         break;
                     case 4:
                         ganIndex = 1;//戊
-                                     
+
                         break;
                     case 5:
                         ganIndex = 3;//己
@@ -1205,10 +1204,10 @@ namespace Dncy.Tools
                         ganIndex = 1;//癸
                         break;
                     default:
-                        break ;
+                        break;
                 }
 
-                var gan = TianGan[( ganIndex + ChineseMonth - 2 ) % 10].ToString();
+                var gan = TianGan[(ganIndex + ChineseMonth - 2) % 10].ToString();
                 return gan + zhi + "月";
             }
         }

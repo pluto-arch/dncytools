@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dncy.Tools.Core
+namespace Dotnetydd.Tools.Core.Contracts
 {
     public interface IObjectSerializeProvider
     {

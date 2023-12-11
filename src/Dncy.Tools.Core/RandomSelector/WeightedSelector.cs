@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.RandomSelector
 {
     /// <summary>
     /// 权重筛选器

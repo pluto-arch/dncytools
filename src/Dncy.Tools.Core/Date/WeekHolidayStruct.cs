@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Dncy.Tools
+﻿namespace Dotnetydd.Tools.Core.Date
 {
     /// <summary>
     /// 节假日信息

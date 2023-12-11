@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Ganss.Xss;
+using Dotnetydd.Tools.Core.RandomSelector;
 
-#if NETCOREAPP || (NET46_OR_GREATER&&!NET462)
+
+#if NETCOREAPP || (NET46_OR_GREATER && !NET462)
 using AngleSharp;
 using AngleSharp.Dom;
 #endif

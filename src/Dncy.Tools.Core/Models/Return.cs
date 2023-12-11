@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dncy.Tools.Core
+namespace Dotnetydd.Tools.Core.Models
 {
     /// <summary>
     /// 方法返回值包装器
@@ -32,17 +32,17 @@ namespace Dncy.Tools.Core
 
         public static Return<T, E> Success(T v)
         {
-            return new(v, default(E), true);
+            return new(v, default, true);
         }
 
         public static Return<T, E> Error(E e)
         {
-            return new(default(T), e, false);
+            return new(default, e, false);
         }
 
 
-        public static implicit operator Return<T, E>(T v) => new(v, default(E), true);
-        public static implicit operator Return<T, E>(E e) => new(default(T), e, false);
+        public static implicit operator Return<T, E>(T v) => new(v, default, true);
+        public static implicit operator Return<T, E>(E e) => new(default, e, false);
 
         public R Match<R>(Func<T, R> success, Func<E, R> failure)
             => _success ? success(value) : failure(error);

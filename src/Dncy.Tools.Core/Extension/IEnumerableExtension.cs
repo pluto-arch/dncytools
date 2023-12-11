@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static partial class IEnumerableExtension
     {
@@ -434,7 +434,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static Task ForeachAsync<T>(this IEnumerable<T> source, Func<T, Task> action, CancellationToken cancellationToken = default)
         {
-            return ForeachAsync(source, action, source.Count(), cancellationToken);
+            return source.ForeachAsync(action, source.Count(), cancellationToken);
         }
 
         /// <summary>
@@ -516,7 +516,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static Task ForAsync<T>(this IEnumerable<T> source, Func<T, int, Task> selector, CancellationToken cancellationToken = default)
         {
-            return ForAsync(source, selector, source.Count(), cancellationToken);
+            return source.ForAsync(selector, source.Count(), cancellationToken);
         }
 #endif
         /// <summary>
@@ -680,7 +680,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static TResult StandardDeviation<T, TResult>(this IEnumerable<T> source, Func<T, TResult> selector) where TResult : IConvertible
         {
-            return StandardDeviation(source.Select(t => selector(t).ConvertTo<double>())).ConvertTo<TResult>();
+            return source.Select(t => selector(t).ConvertTo<double>()).StandardDeviation().ConvertTo<TResult>();
         }
 
         /// <summary>
@@ -691,7 +691,7 @@ namespace Dncy.Tools
         /// <returns></returns>
         public static T StandardDeviation<T>(this IEnumerable<T> source) where T : IConvertible
         {
-            return StandardDeviation(source.Select(t => t.ConvertTo<double>())).ConvertTo<T>();
+            return source.Select(t => t.ConvertTo<double>()).StandardDeviation().ConvertTo<T>();
         }
 
         /// <summary>

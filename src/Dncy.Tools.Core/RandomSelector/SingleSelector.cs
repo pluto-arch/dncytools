@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.RandomSelector
 {
     public class SingleSelector<T> : SelectorBase<T>
     {

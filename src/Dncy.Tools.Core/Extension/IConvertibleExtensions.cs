@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class IConvertibleExtensions
     {
@@ -14,7 +14,7 @@ namespace Dncy.Tools
 
         public static T ConvertTo<T>(this IConvertible value) where T : IConvertible
         {
-            return (T)ConvertTo(value, typeof(T));
+            return (T)value.ConvertTo(typeof(T));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Dncy.Tools
         {
             try
             {
-                return (T)ConvertTo(value, typeof(T));
+                return (T)value.ConvertTo(typeof(T));
             }
             catch
             {
@@ -47,7 +47,7 @@ namespace Dncy.Tools
         {
             try
             {
-                result = (T)ConvertTo(value, typeof(T));
+                result = (T)value.ConvertTo(typeof(T));
                 return true;
             }
             catch
@@ -68,7 +68,7 @@ namespace Dncy.Tools
         {
             try
             {
-                result = ConvertTo(value, type);
+                result = value.ConvertTo(type);
                 return true;
             }
             catch

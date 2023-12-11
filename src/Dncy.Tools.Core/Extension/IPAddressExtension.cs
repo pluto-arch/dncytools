@@ -1,8 +1,17 @@
 ﻿using System;
-using System.Net.Sockets;
+/* 项目“Dotnetydd.Tools.Core (net46)”的未合并的更改
+在此之前:
 using System.Net;
+在此之后:
+using System.Net;
+using Dncy;
+using Dncy.Tools;
+using Dotnetydd.Tools.Core.Extension;
+*/
+using System.Net;
+using System.Net.Sockets;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static class IPAddressExtension
     {
@@ -87,7 +96,7 @@ namespace Dncy.Tools
                 return ip;
             }
 
-            long newAddress = (uint)( (int)( (uint)( m_Numbers[6] & 0xFF00 ) >> 8 ) | ( ( m_Numbers[6] & 0xFF ) << 8 ) | ( ( (int)( (uint)( m_Numbers[7] & 0xFF00 ) >> 8 ) | ( ( m_Numbers[7] & 0xFF ) << 8 ) ) << 16 ) );
+            long newAddress = (uint)((int)((uint)(m_Numbers[6] & 0xFF00) >> 8) | (m_Numbers[6] & 0xFF) << 8 | ((int)((uint)(m_Numbers[7] & 0xFF00) >> 8) | (m_Numbers[7] & 0xFF) << 8) << 16);
             return new IPAddress(newAddress);
         }
 

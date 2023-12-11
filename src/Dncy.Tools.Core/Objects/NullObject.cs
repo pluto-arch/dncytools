@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
-namespace System
+namespace Dotnetydd.Tools.Core.Objects
 {
     public readonly struct NullObject<T> : IComparable, IComparable<T>
     {
@@ -53,7 +54,7 @@ namespace System
 
         public override string ToString()
         {
-            return (Item != null) ? Item.ToString() : "NULL";
+            return Item != null ? Item.ToString() : "NULL";
         }
 
         public int CompareTo(object value)

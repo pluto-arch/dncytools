@@ -1,5 +1,8 @@
-﻿
-namespace System.Collections.Generic
+﻿using Dotnetydd.Tools.Core.Objects;
+using System;
+using System.Collections.Generic;
+
+namespace Dotnetydd.Tools.Core.Collection
 {
     public class DisposeableDictionary<TKey, TValue> : NullableDictionary<TKey, TValue>, IDisposable where TValue : IDisposable
     {

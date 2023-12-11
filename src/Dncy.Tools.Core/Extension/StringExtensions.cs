@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Dotnetydd.Tools.Core.Date;
+using Dotnetydd.Tools.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Numerics;
 using System.Text.RegularExpressions;
-using System.Date;
-using System.Globalization;
+using Dotnetydd.Tools.Core.Format;
 
-namespace Dncy.Tools
+namespace Dotnetydd.Tools.Core.Extension
 {
     public static partial class StringExtensions
     {
@@ -26,15 +27,15 @@ namespace Dncy.Tools
             {
                 if (x[i] == '0')
                 {
-                    ret = ToNum(x[i]) + ret;
+                    ret = x[i].ToNum() + ret;
                 }
                 else
                 {
-                    ret = ToNum(x[i]) + strArrayLevelNames[x.Length - 1 - i] + ret;
+                    ret = x[i].ToNum() + strArrayLevelNames[x.Length - 1 - i] + ret;
                 }
             }
 
-            while (( i = ret.IndexOf("零零", StringComparison.Ordinal) ) != -1)
+            while ((i = ret.IndexOf("零零", StringComparison.Ordinal)) != -1)
             {
                 ret = ret.Remove(i, 1);
             }
@@ -64,12 +65,12 @@ namespace Dncy.Tools
             string temp;
             if (len <= 4)
             {
-                result = ToChineseTenThousandInt(x);
+                result = x.ToChineseTenThousandInt();
             }
             else if (len <= 8)
             {
-                result = ToChineseTenThousandInt(x.Substring(0, len - 4)) + "万";
-                temp = ToChineseTenThousandInt(x.Substring(len - 4, 4));
+                result = x.Substring(0, len - 4).ToChineseTenThousandInt() + "万";
+                temp = x.Substring(len - 4, 4).ToChineseTenThousandInt();
                 if (temp.IndexOf("千", StringComparison.Ordinal) == -1 && !string.IsNullOrEmpty(temp))
                 {
                     result += "零" + temp;
@@ -81,8 +82,8 @@ namespace Dncy.Tools
             }
             else
             {
-                result = ToChineseTenThousandInt(x.Substring(0, len - 8)) + "亿";
-                temp = ToChineseTenThousandInt(x.Substring(len - 8, 4));
+                result = x.Substring(0, len - 8).ToChineseTenThousandInt() + "亿";
+                temp = x.Substring(len - 8, 4).ToChineseTenThousandInt();
                 if (temp.IndexOf("千", StringComparison.Ordinal) == -1 && !string.IsNullOrEmpty(temp))
                 {
                     result += "零" + temp;
@@ -93,7 +94,7 @@ namespace Dncy.Tools
                 }
 
                 result += "万";
-                temp = ToChineseTenThousandInt(x.Substring(len - 4, 4));
+                temp = x.Substring(len - 4, 4).ToChineseTenThousandInt();
                 if (temp.IndexOf("千", StringComparison.Ordinal) == -1 && !string.IsNullOrEmpty(temp))
                 {
                     result += "零" + temp;
@@ -104,12 +105,12 @@ namespace Dncy.Tools
                 }
             }
             int i;
-            if (( i = result.IndexOf("零万", StringComparison.Ordinal) ) != -1)
+            if ((i = result.IndexOf("零万", StringComparison.Ordinal)) != -1)
             {
                 result = result.Remove(i + 1, 1);
             }
 
-            while (( i = result.IndexOf("零零", StringComparison.Ordinal) ) != -1)
+            while ((i = result.IndexOf("零零", StringComparison.Ordinal)) != -1)
             {
                 result = result.Remove(i, 1);
             }
@@ -285,7 +286,7 @@ namespace Dncy.Tools
         public static string CreateShortToken(this string _, byte chars = 36)
         {
             var nf = new NumberBaseConvertor(chars);
-            return nf.ToString(( DateTime.Now.Ticks - 630822816000000000 ) * 100 + Stopwatch.GetTimestamp() % 100);
+            return nf.ToString((DateTime.Now.Ticks - 630822816000000000) * 100 + Stopwatch.GetTimestamp() % 100);
         }
 
 
@@ -309,7 +310,7 @@ namespace Dncy.Tools
             var isMatch = match.Success;
             return (isMatch, match);
         }
-        
+
         /// <summary>
         /// 邮箱掩码
         /// </summary>
@@ -320,7 +321,7 @@ namespace Dncy.Tools
         {
             var index = s.LastIndexOf("@");
             var oldValue = s.Substring(0, index);
-            return !MatchEmail(s).isMatch ? s : s.Replace(oldValue, Mask(oldValue, mask));
+            return !s.MatchEmail().isMatch ? s : s.Replace(oldValue, oldValue.Mask(mask));
         }
         #endregion
 
@@ -378,9 +379,9 @@ namespace Dncy.Tools
             int sum = 0;
             for (int i = 0; i < 17; i++)
             {
-                sum += ( ID[i] - '0' ) * factors[i];
+                sum += (ID[i] - '0') * factors[i];
             }
-            int n = ( 12 - sum % 11 ) % 11;
+            int n = (12 - sum % 11) % 11;
             return n < 10 ? ID[17] - '0' == n : ID[17].Equals('X');
         }
 
@@ -445,7 +446,7 @@ namespace Dncy.Tools
                 return false;
             }
             Match match = Regex.Match(s, @"^((1[3,5,6,8][0-9])|(14[5,7])|(17[0,1,3,6,7,8])|(19[8,9]))\d{8}$");
-            if (match!=null&&match.Success)
+            if (match != null && match.Success)
             {
                 matchValue = match.Value;
                 return true;
@@ -462,7 +463,7 @@ namespace Dncy.Tools
         /// <returns>是否匹配成功</returns>
         public static bool IsPhoneNumber(this string s)
         {
-            return MatchPhoneNumber(s, out var _);
+            return s.MatchPhoneNumber(out var _);
         }
 
 
@@ -524,6 +525,6 @@ namespace Dncy.Tools
         {
             return Math.Round(s.TryConvertTo(defaultValue), round);
         }
-        
+
     }
 }

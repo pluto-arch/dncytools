@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.InteropServices;
 
-namespace System.Date
-{ 
+namespace Dotnetydd.Tools.Core.Date
+{
     public static class DateTools
     {
         /// <summary>
@@ -58,7 +56,7 @@ namespace System.Date
         public static void GetWeekTime(this DateTime _, int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
         {
             var dt = new DateTime(nYear, 1, 1);
-            dt += new TimeSpan(( nNumWeek - 1 ) * 7, 0, 0, 0);
+            dt += new TimeSpan((nNumWeek - 1) * 7, 0, 0, 0);
             dtWeekStart = dt.AddDays(-(int)dt.DayOfWeek + (int)DayOfWeek.Monday);
             dtWeekeEnd = dt.AddDays((int)DayOfWeek.Saturday - (int)dt.DayOfWeek + 1);
         }
@@ -74,7 +72,7 @@ namespace System.Date
         public static void GetWeekWorkTime(this DateTime _, int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
         {
             var dt = new DateTime(nYear, 1, 1);
-            dt += new TimeSpan(( nNumWeek - 1 ) * 7, 0, 0, 0);
+            dt += new TimeSpan((nNumWeek - 1) * 7, 0, 0, 0);
             dtWeekStart = dt.AddDays(-(int)dt.DayOfWeek + (int)DayOfWeek.Monday);
             dtWeekeEnd = dt.AddDays((int)DayOfWeek.Saturday - (int)dt.DayOfWeek + 1).AddDays(-2);
         }
@@ -113,7 +111,7 @@ namespace System.Date
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static long GetTotalMicroseconds(this in DateTime dt) => ( new DateTimeOffset(dt).UtcTicks - 621355968000000000 ) / 10;
+        public static long GetTotalMicroseconds(this in DateTime dt) => (new DateTimeOffset(dt).UtcTicks - 621355968000000000) / 10;
 
 
         /// <summary>
@@ -392,10 +390,10 @@ namespace System.Date
         /// <returns>小时差</returns>
         public static string GetTimeDelay(this in DateTime dtStar, DateTime dtEnd)
         {
-            long lTicks = ( dtEnd.Ticks - dtStar.Ticks ) / 10000000;
-            string sTemp = ( lTicks / 3600 ).ToString().PadLeft(2, '0') + ":";
-            sTemp += ( lTicks % 3600 / 60 ).ToString().PadLeft(2, '0') + ":";
-            sTemp += ( lTicks % 3600 % 60 ).ToString().PadLeft(2, '0');
+            long lTicks = (dtEnd.Ticks - dtStar.Ticks) / 10000000;
+            string sTemp = (lTicks / 3600).ToString().PadLeft(2, '0') + ":";
+            sTemp += (lTicks % 3600 / 60).ToString().PadLeft(2, '0') + ":";
+            sTemp += (lTicks % 3600 % 60).ToString().PadLeft(2, '0');
             return sTemp;
         }
 

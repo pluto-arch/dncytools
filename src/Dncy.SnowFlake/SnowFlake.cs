@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Date;
-using Dncy.Tools;
+using Dotnetydd.Tools.Core.Date;
+using Dotnetydd.Tools.Core.Format;
 
-namespace Dncy.SnowFlake
+namespace Dotnetydd.Tools.SnowFlake
 {
     public class SnowFlake
     {
@@ -18,7 +18,7 @@ namespace Dncy.SnowFlake
         private const long MachineIdBits = 5L; //机器码字节数
         private const long DataBits = 5L; //数据字节数
         private const long MaxMachineId = -1L ^ -1L << (int)MachineIdBits; //最大机器码
-        private const long MaxDataBitId = -1L ^ ( -1L << (int)DataBits ); //最大数据字节数
+        private const long MaxDataBitId = -1L ^ -1L << (int)DataBits; //最大数据字节数
 
         private const long SequenceBits = 12L; //计数器字节数，12个字节用来保存计数码        
         private const long MachineIdShift = SequenceBits; //机器码数据左移位数，就是后面计数器占用的位数
@@ -26,7 +26,7 @@ namespace Dncy.SnowFlake
         private const long TimestampLeftShift = DatacenterIdShift + DataBits; //时间戳左移动位数就是机器码+计数器总字节数+数据字节数
         private const long SequenceMask = -1L ^ -1L << (int)SequenceBits; //一毫秒内可以产生计数，如果达到该值则等到下一毫秒在进行生成
 
-        private static readonly object _lock = new object(); 
+        private static readonly object _lock = new object();
         private static NumberBaseConvertor _numberFormater = new NumberBaseConvertor(36);
         private static SnowFlake _snowFlake;
 
@@ -125,7 +125,7 @@ namespace Dncy.SnowFlake
                 if (_lastTimestamp == timestamp)
                 {
                     //同一毫秒中生成ID
-                    _sequence = ( _sequence + 1 ) & SequenceMask; //用&运算计算该毫秒内产生的计数是否已经到达上限
+                    _sequence = _sequence + 1 & SequenceMask; //用&运算计算该毫秒内产生的计数是否已经到达上限
                     if (_sequence == 0)
                     {
                         //一毫秒内产生的ID计数已达上限，等待下一毫秒
@@ -139,7 +139,7 @@ namespace Dncy.SnowFlake
                 }
 
                 _lastTimestamp = timestamp; //把当前时间戳保存为最后生成ID的时间戳
-                long id = ( ( timestamp - Twepoch ) << (int)TimestampLeftShift ) | ( _dataId << (int)DatacenterIdShift ) | ( _machineId << (int)MachineIdShift ) | _sequence;
+                long id = timestamp - Twepoch << (int)TimestampLeftShift | _dataId << (int)DatacenterIdShift | _machineId << (int)MachineIdShift | _sequence;
                 return id;
             }
         }
