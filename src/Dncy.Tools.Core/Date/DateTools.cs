@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Dotnetydd.Tools.Core.Date
+namespace Dotnetydd.Tools.Date
 {
     public static class DateTools
     {

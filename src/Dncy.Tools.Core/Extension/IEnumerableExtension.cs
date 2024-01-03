@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dotnetydd.Tools.Extension;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static partial class IEnumerableExtension
     {
@@ -107,7 +108,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// <param name="second"></param>
         /// <param name="keySelector"></param>
         /// <returns></returns>
-        public static IEnumerable<TSource> IntersectBy<TSource, TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<TSource> IntersectBy<TSource, TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             if (first == null)
                 throw new ArgumentNullException(nameof(first));
@@ -153,7 +154,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// <param name="comparer"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IEnumerable<TSource> ExceptBy<TSource, TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<TSource> ExceptBy<TSource, TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             if (first == null)
                 throw new ArgumentNullException(nameof(first));

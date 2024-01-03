@@ -1,8 +1,8 @@
-﻿using Dotnetydd.Tools.Core.Objects;
+﻿using Dotnetydd.Tools.Objects;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Dotnetydd.Tools.Core.Collection
+namespace Dotnetydd.Tools.Collection
 {
     public class NullableDictionary<TKey, TValue> : Dictionary<NullObject<TKey>, TValue>
     {
@@ -14,7 +14,7 @@ namespace Dotnetydd.Tools.Core.Collection
         {
         }
 
-        public NullableDictionary(IEqualityComparer<NullObject<TKey>>? comparer) : base(comparer)
+        public NullableDictionary(IEqualityComparer<NullObject<TKey>> comparer) : base(comparer)
         {
         }
 
@@ -34,7 +34,7 @@ namespace Dotnetydd.Tools.Core.Collection
         ///
         /// </summary>
         /// <param name="key"></param>
-        public new TValue? this[NullObject<TKey> key]
+        public new TValue this[NullObject<TKey> key]
         {
             get => TryGetValue(key, out var value) ? value : default;
             set => base[key] = value!;

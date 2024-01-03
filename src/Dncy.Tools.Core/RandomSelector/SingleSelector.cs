@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dotnetydd.Tools.Core.RandomSelector
+namespace Dotnetydd.Tools.RandomSelector
 {
     public class SingleSelector<T> : SelectorBase<T>
     {

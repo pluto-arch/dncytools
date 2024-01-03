@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class ObjectTypeExtensions
     {
@@ -34,7 +34,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// <param name="genericType"></param>
         /// <param name="constructedType"></param>
         /// <returns></returns>
-        public static bool IsConstructedFrom(this Type type, Type genericType, out Type? constructedType)
+        public static bool IsConstructedFrom(this Type type, Type genericType, out Type constructedType)
         {
             constructedType = new[] { type }
                 .Union(type.GetInheritanceChain())
@@ -64,7 +64,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static object? GetDefaultValue(this Type type)
+        public static object GetDefaultValue(this Type type)
         {
             return type.IsValueType
                 ? Activator.CreateInstance(type)

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Dotnetydd.Tools.Extension;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class DataTableExtensions
     {
@@ -47,7 +48,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// <param name="tableName"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static DataTable ToDataTable<T>(this IEnumerable<T> source, string? tableName = null)
+        public static DataTable ToDataTable<T>(this IEnumerable<T> source, string tableName = null)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             var props = typeof(T).GetProperties();

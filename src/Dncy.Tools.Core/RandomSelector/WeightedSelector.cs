@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Dotnetydd.Tools.Core.RandomSelector
+namespace Dotnetydd.Tools.RandomSelector
 {
     /// <summary>
     /// 权重筛选器

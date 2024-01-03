@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Dotnetydd.Tools.Core.Objects
+namespace Dotnetydd.Tools.Objects
 {
     public readonly struct NullObject<T> : IComparable, IComparable<T>
     {

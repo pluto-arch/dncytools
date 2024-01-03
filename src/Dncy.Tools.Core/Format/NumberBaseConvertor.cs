@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dotnetydd.Tools.Core.Format
+namespace Dotnetydd.Tools.Format
 {
     /// <summary>
     /// 数制转换器

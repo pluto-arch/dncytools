@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class StreamExtension
     {

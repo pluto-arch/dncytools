@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dotnetydd.Tools.Core.Models
+namespace Dotnetydd.Tools.Models
 {
     /// <summary>
     /// 方法返回值包装器

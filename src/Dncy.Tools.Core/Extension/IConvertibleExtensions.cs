@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class IConvertibleExtensions
     {

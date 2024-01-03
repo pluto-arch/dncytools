@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.Core.Date
+﻿namespace Dotnetydd.Tools.Date
 {
     /// <summary>
     /// 节假日信息

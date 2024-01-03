@@ -1,26 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Dotnetydd.Tools.Extension;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
 
-namespace System.Linq.Expressions
+namespace Dotnetydd.Tools.Extension
 {
     public static partial class LinqExtension
     {
-        /// <summary>
-        /// 与连接
-        /// </summary>
-        /// <returns>新表达式</returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
         {
-            return CombineLambdas(left, right, ExpressionType.AndAlso);
+            return left.CombineLambdas(right, ExpressionType.AndAlso);
         }
 
 
-        /// <summary>
-        /// 或连接
-        /// </summary>
-        /// <returns>新表达式</returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
         {
-            return CombineLambdas(left, right, ExpressionType.OrElse);
+            return left.CombineLambdas(right, ExpressionType.OrElse);
         }
 
 
@@ -51,5 +48,4 @@ namespace System.Linq.Expressions
             return Sub.TryGetValue(node, out var newValue) ? newValue : node;
         }
     }
-
 }

@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.Core.Date
+﻿namespace Dotnetydd.Tools.Date
 {
     public struct DateInfoStruct
     {

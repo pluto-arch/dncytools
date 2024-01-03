@@ -1,15 +1,16 @@
-﻿using Dotnetydd.Tools.Core.Date;
-using Dotnetydd.Tools.Core.Extension;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using Dotnetydd.Tools.Core.Format;
+using Dotnetydd.Tools.Format;
 
-namespace Dotnetydd.Tools.Core.Extension
+using Dotnetydd.Tools.Date;
+using Dotnetydd.Tools.Extension;
+
+namespace Dotnetydd.Tools.Extension
 {
     public static partial class StringExtensions
     {
@@ -299,7 +300,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// </summary>
         /// <param name="s">源字符串</param>
         /// <returns>匹配对象；是否匹配成功，若返回true，则会得到一个Match对象，否则为null</returns>
-        public static (bool isMatch, Match? match) MatchEmail(this string s)
+        public static (bool isMatch, Match match) MatchEmail(this string s)
         {
             if (string.IsNullOrEmpty(s) || s.Length < 7)
             {

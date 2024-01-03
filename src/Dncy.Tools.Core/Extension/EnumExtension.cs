@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class EnumExtension
     {
@@ -111,7 +111,7 @@ namespace Dotnetydd.Tools.Core.Extension
         /// <param name="assembly"></param>
         /// <param name="typeName"></param>
         /// <returns></returns>
-        public static Type? GetEnumType(Assembly assembly, string typeName)
+        public static Type GetEnumType(Assembly assembly, string typeName)
         {
             if (_enumTypeDict == null)
             {
@@ -193,7 +193,7 @@ namespace Dotnetydd.Tools.Core.Extension
         public static NameValueCollection GetEnumStringFromEnumValue(Type enumType)
         {
             var nvc = new NameValueCollection();
-            var fields = enumType.GetFields();
+            var fields =  enumType.GetFields();
             foreach (FieldInfo field in fields)
             {
                 if (field.FieldType.IsEnum)

@@ -11,7 +11,7 @@ using Dotnetydd.Tools.Core.Extension;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Dotnetydd.Tools.Core.Extension
+namespace Dotnetydd.Tools.Extension
 {
     public static class IPAddressExtension
     {

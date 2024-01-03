@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.Core.RandomSelector
+﻿namespace Dotnetydd.Tools.RandomSelector
 {
     public class WeightedItem<T>
     {

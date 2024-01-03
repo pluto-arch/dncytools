@@ -1,9 +1,9 @@
-﻿using Dotnetydd.Tools.Core.Extension;
+﻿using Dotnetydd.Tools.Extension;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dotnetydd.Tools.Core.Encode
+namespace Dotnetydd.Tools.Encode
 {
     /// <summary>
     /// 得到随机安全码（哈希加密）。
@@ -25,7 +25,7 @@ namespace Dotnetydd.Tools.Core.Encode
         {
             var code = new UnicodeEncoding();
             byte[] message = code.GetBytes(security);
-            using var arithmetic = new SHA512Managed();
+            using var arithmetic = SHA512.Create();
             var value = arithmetic.ComputeHash(message);
             var sb = new StringBuilder();
             foreach (byte o in value)

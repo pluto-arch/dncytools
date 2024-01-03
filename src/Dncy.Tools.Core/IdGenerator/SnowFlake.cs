@@ -1,8 +1,8 @@
 ﻿using System;
-using Dotnetydd.Tools.Core.Date;
-using Dotnetydd.Tools.Core.Format;
+using Dotnetydd.Tools.Date;
+using Dotnetydd.Tools.Format;
 
-namespace Dotnetydd.Tools.SnowFlake
+namespace Dotnetydd.Tools
 {
     public class SnowFlake
     {
@@ -176,6 +176,4 @@ namespace Dotnetydd.Tools.SnowFlake
         }
 
     }
-
-
 }
