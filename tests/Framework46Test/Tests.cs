@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dotnetydd.Tools;
+using Dotnetydd.Tools.Date;
 using Dotnetydd.Tools.Encode;
 using NUnit.Framework;
 
@@ -29,6 +30,10 @@ namespace Framework46Test
         [Test]
         public async Task Test_SnowFlake()
         {
+
+            var sd = DateTime.Now.GetWeekAmount(2023);
+
+
             var sn = new SnowFlake();
             var l = new HashSet<long>();
             var t1 = Task.Run(async () =>

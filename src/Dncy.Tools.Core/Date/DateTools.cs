@@ -8,12 +8,11 @@ namespace Dotnetydd.Tools.Date
         /// <summary>
         /// 获取某一年有多少周
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="year">年份</param>
         /// <returns>该年周数</returns>
-        public static int GetWeekAmount(this DateTime _, int year)
+        public static int GetWeekAmount(int year)
         {
-            var end = new DateTime(year, 12, 31); //该年最后一天
+            var end = new DateTime(year, 12, 31);
             var gc = new GregorianCalendar();
             return gc.GetWeekOfYear(end, CalendarWeekRule.FirstDay, DayOfWeek.Monday); //该年星期数
         }
@@ -48,12 +47,11 @@ namespace Dotnetydd.Tools.Date
         /// 周始 out dtWeekStart
         /// 周终 out dtWeekeEnd
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="nYear">年份</param>
         /// <param name="nNumWeek">第几周</param>
         /// <param name="dtWeekStart">开始日期</param>
         /// <param name="dtWeekeEnd">结束日期</param>
-        public static void GetWeekTime(this DateTime _, int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
+        public static void GetWeekTime(int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
         {
             var dt = new DateTime(nYear, 1, 1);
             dt += new TimeSpan((nNumWeek - 1) * 7, 0, 0, 0);
@@ -64,12 +62,11 @@ namespace Dotnetydd.Tools.Date
         /// <summary>
         /// 得到一年中的某周的起始日和截止日    周一到周五  工作日
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="nYear">年份</param>
         /// <param name="nNumWeek">第几周</param>
         /// <param name="dtWeekStart">开始日期</param>
         /// <param name="dtWeekeEnd">结束日期</param>
-        public static void GetWeekWorkTime(this DateTime _, int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
+        public static void GetWeekWorkTime(int nYear, int nNumWeek, out DateTime dtWeekStart, out DateTime dtWeekeEnd)
         {
             var dt = new DateTime(nYear, 1, 1);
             dt += new TimeSpan((nNumWeek - 1) * 7, 0, 0, 0);
@@ -138,10 +135,9 @@ namespace Dotnetydd.Tools.Date
         /// <summary>
         /// 返回本年有多少天
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="iYear">年份</param>
         /// <returns>本年的天数</returns>
-        public static int GetDaysOfYear(this DateTime _, int iYear)
+        public static int GetDaysOfYear(int iYear)
         {
             return IsRuYear(iYear) ? 366 : 365;
         }
@@ -157,11 +153,10 @@ namespace Dotnetydd.Tools.Date
         }
 
         /// <summary>本月有多少天</summary>
-        /// <param name="_"></param>
         /// <param name="iYear">年</param>
         /// <param name="month">月</param>
         /// <returns>天数</returns>
-        public static int GetDaysOfMonth(this DateTime _, int iYear, int month)
+        public static int GetDaysOfMonth(int iYear, int month)
         {
 
             switch (month)
@@ -243,7 +238,7 @@ namespace Dotnetydd.Tools.Date
         /// <summary>判断当前年份是否是闰年，私有函数</summary>
         /// <param name="iYear">年份</param>
         /// <returns>是闰年：True ，不是闰年：False</returns>
-        private static bool IsRuYear(int iYear)
+        public static bool IsRuYear(int iYear)
         {
             //形式参数为年份
             //例如：2003
@@ -292,11 +287,10 @@ namespace Dotnetydd.Tools.Date
         /// <summary>
         ///  返回每月的第一天和最后一天
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="month">月份</param>
         /// <param name="firstDay">第一天</param>
         /// <param name="lastDay">最后一天</param>
-        public static void ReturnDateFormat(this DateTime _, int month, out string firstDay, out string lastDay)
+        public static void ReturnDateFormat(int month, out string firstDay, out string lastDay)
         {
             int year = DateTime.Now.Year + month / 12;
             if (month != 12)
@@ -371,11 +365,10 @@ namespace Dotnetydd.Tools.Date
         /// <summary>
         /// 返回某年某月最后一天
         /// </summary>
-        /// <param name="_"></param>
         /// <param name="year">年份</param>
         /// <param name="month">月份</param>
         /// <returns>日</returns>
-        public static int GetMonthLastDate(this DateTime _, int year, int month)
+        public static int GetMonthLastDate(int year, int month)
         {
             DateTime lastDay = new DateTime(year, month, new GregorianCalendar().GetDaysInMonth(year, month));
             int day = lastDay.Day;
