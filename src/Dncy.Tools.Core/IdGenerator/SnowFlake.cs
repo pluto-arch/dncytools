@@ -129,7 +129,7 @@ namespace Dotnetydd.Tools
                     if (_sequence == 0)
                     {
                         //一毫秒内产生的ID计数已达上限，等待下一毫秒
-                        timestamp = DateTime.UtcNow.GetTotalMilliseconds();
+                        timestamp = WaitForNextMillis(_lastTimestamp);
                     }
                 }
                 else
@@ -142,6 +142,16 @@ namespace Dotnetydd.Tools
                 long id = timestamp - Twepoch << (int)TimestampLeftShift | _dataId << (int)DatacenterIdShift | _machineId << (int)MachineIdShift | _sequence;
                 return id;
             }
+        }
+
+        private long WaitForNextMillis(long lastTimestamp)
+        {
+            var timestamp = DateTime.UtcNow.GetTotalMilliseconds();
+            while (timestamp <= lastTimestamp)
+            {
+                timestamp = DateTime.UtcNow.GetTotalMilliseconds();
+            }
+            return timestamp;
         }
 
         /// <summary>
