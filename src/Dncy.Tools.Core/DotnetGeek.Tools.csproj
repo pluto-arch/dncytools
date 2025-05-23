@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
 		<!-- NuGet 包配置 -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>DotnetGeek.Tools</PackageId>
