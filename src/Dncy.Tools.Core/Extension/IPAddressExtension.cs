@@ -1,17 +1,17 @@
 ﻿using System;
-/* 项目“Dotnetydd.Tools.Core (net46)”的未合并的更改
+/* 项目“DotnetGeek.Tools.Core (net46)”的未合并的更改
 在此之前:
 using System.Net;
 在此之后:
 using System.Net;
 using Dncy;
 using Dncy.Tools;
-using Dotnetydd.Tools.Core.Extension;
+using DotnetGeek.Tools.Core.Extension;
 */
 using System.Net;
 using System.Net.Sockets;
 
-namespace Dotnetydd.Tools.Extension
+namespace DotnetGeek.Tools
 {
     public static class IPAddressExtension
     {

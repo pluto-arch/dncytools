@@ -1,5 +1,4 @@
-﻿using Dotnetydd.Tools.Extension;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +7,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Dotnetydd.Tools.Extension
+namespace DotnetGeek.Tools
 {
     public static partial class IEnumerableExtension
     {

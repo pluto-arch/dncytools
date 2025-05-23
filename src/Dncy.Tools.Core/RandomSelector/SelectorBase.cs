@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dotnetydd.Tools.RandomSelector
+namespace DotnetGeek.Tools
 {
     public abstract class SelectorBase<T>
     {

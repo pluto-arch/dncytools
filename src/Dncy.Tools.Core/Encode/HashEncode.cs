@@ -1,9 +1,8 @@
-﻿using Dotnetydd.Tools.Extension;
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dotnetydd.Tools.Encode
+namespace DotnetGeek.Tools
 {
     /// <summary>
     /// 得到随机安全码（哈希加密）。

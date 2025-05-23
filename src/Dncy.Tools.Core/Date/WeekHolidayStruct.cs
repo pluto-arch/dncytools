@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.Date
+﻿namespace DotnetGeek.Tools
 {
     /// <summary>
     /// 节假日信息

@@ -5,12 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using Dotnetydd.Tools.Format;
 
-using Dotnetydd.Tools.Date;
-using Dotnetydd.Tools.Extension;
-
-namespace Dotnetydd.Tools.Extension
+namespace DotnetGeek.Tools
 {
     public static partial class StringExtensions
     {

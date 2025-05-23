@@ -1,11 +1,9 @@
-﻿using Dotnetydd.Tools.Format;
-using Dotnetydd.Tools.Extension;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Dotnetydd.Tools.Extension
+namespace DotnetGeek.Tools
 {
     public static class NumberExtension
     {

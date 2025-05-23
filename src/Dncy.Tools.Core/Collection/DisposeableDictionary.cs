@@ -1,8 +1,7 @@
-﻿using Dotnetydd.Tools.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Dotnetydd.Tools.Collection
+namespace DotnetGeek.Tools
 {
     public class DisposeableDictionary<TKey, TValue> : NullableDictionary<TKey, TValue>, IDisposable where TValue : IDisposable
     {

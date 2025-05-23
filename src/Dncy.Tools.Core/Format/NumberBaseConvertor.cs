@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dotnetydd.Tools.Format
+namespace DotnetGeek.Tools
 {
     /// <summary>
     /// 数制转换器

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dotnetydd.Tools.RandomSelector
+namespace DotnetGeek.Tools
 {
     public class MultipleSelector<T> : SelectorBase<T>
     {
@@ -31,14 +31,14 @@ namespace Dotnetydd.Tools.RandomSelector
         {
             if (count <= 0)
             {
-                throw new InvalidOperationException("筛选个数必须大于0");
+                throw new InvalidOperationException("The number of filtered items must be greater than 0.");
             }
 
             var items = WeightedSelector.Items;
 
             if (items.Count == 0)
             {
-                throw new InvalidOperationException("没有元素可以被筛选");
+                throw new InvalidOperationException("No elements can be filtered.");
             }
 
             if (!WeightedSelector.Option.AllowDuplicate && items.Count < count)

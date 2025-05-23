@@ -1,11 +1,8 @@
-﻿using Dotnetydd.Tools.Extension;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
-namespace Dotnetydd.Tools.Extension
+namespace DotnetGeek.Tools
 {
     public static partial class LinqExtension
     {

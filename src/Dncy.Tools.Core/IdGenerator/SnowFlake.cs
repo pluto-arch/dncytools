@@ -1,8 +1,6 @@
 ﻿using System;
-using Dotnetydd.Tools.Date;
-using Dotnetydd.Tools.Format;
 
-namespace Dotnetydd.Tools
+namespace DotnetGeek.Tools
 {
     public class SnowFlake
     {

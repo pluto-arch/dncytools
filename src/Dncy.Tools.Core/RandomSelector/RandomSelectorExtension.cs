@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Dotnetydd.Tools.RandomSelector
+namespace DotnetGeek.Tools
 {
     public static class RandomSelectorExtension
     {

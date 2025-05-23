@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.RandomSelector
+﻿namespace DotnetGeek.Tools
 {
     public class SelectorOption
     {

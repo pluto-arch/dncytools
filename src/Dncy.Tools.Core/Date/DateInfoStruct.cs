@@ -1,4 +1,4 @@
-﻿namespace Dotnetydd.Tools.Date
+﻿namespace DotnetGeek.Tools
 {
     public struct DateInfoStruct
     {

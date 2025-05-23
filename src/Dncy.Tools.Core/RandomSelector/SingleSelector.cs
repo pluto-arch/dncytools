@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dotnetydd.Tools.RandomSelector
+namespace DotnetGeek.Tools
 {
     public class SingleSelector<T> : SelectorBase<T>
     {

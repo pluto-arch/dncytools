@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dotnetydd.Tools.Date
+namespace DotnetGeek.Tools
 {
     /// <summary>
     /// 中国农历类 支持 1900.1.31日起至 2069.12.31日止的数据

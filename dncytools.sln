@@ -7,16 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{20EDE552-B1C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{051F1028-8EC4-403B-80E9-018846CBA1E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetydd.Tools", "src\Dncy.Tools.Core\Dotnetydd.Tools.csproj", "{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetGeek.Tools", "src\Dncy.Tools.Core\DotnetGeek.Tools.csproj", "{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{69CDFC5F-B953-4F87-94EF-8F2BC8AD4C3B}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework46Test", "tests\Framework46Test\Framework46Test.csproj", "{F3D94772-2DE2-4984-BE9E-A98A1405A72D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net5678Test", "tests\Net5678Test\Net5678Test.csproj", "{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,22 +25,12 @@ Global
 		{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3D94772-2DE2-4984-BE9E-A98A1405A72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3D94772-2DE2-4984-BE9E-A98A1405A72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3D94772-2DE2-4984-BE9E-A98A1405A72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3D94772-2DE2-4984-BE9E-A98A1405A72D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CDDA46D2-504F-4982-B4C9-FB03E0B2CE53} = {20EDE552-B1C9-4B8A-9D2C-A8831ED89586}
-		{F3D94772-2DE2-4984-BE9E-A98A1405A72D} = {051F1028-8EC4-403B-80E9-018846CBA1E9}
-		{95C56C3A-7059-4D40-A7BC-F8AABA3DB6DB} = {051F1028-8EC4-403B-80E9-018846CBA1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B705EDB-7324-4171-BC16-139B1E3ABA46}
