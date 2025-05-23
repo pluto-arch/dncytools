@@ -1,11 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<!-- NuGet 包配置 -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>DotnetGeek.Tools</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>McCoy Zhang</Authors>
+		<Description>DotnetGeek.Tools 是一个功能丰富的 .NET 工具库，提供多种实用工具类和扩展方法，旨在提高开发效率。</Description>
+		<PackageTags>Tools;Utilities;Extensions;Dotnet;c#</PackageTags>
+		<RepositoryUrl>https://github.com/pluto-arch/dncytools</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/pluto-arch/dncytools</PackageProjectUrl>
+		<Copyright>Copyright © 2025 DotnetGeek</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+		<PackageReference Include="System.ValueTuple" Version="[4.5.0,)" />
 	</ItemGroup>
 
 	<ItemGroup>
