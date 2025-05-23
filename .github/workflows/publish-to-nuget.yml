@@ -20,44 +20,23 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Install PowerShell (for Linux)
-        run: sudo apt-get install -y powershell
-
-      - name: Bump version and set suffix
-        id: versioning
-        shell: pwsh
-        run: |
-          $branch = '${{ github.ref }}'
-          $isMain = $branch -eq 'refs/heads/main'
-          $isDev = $branch -eq 'refs/heads/dev'
-          $proj = Get-ChildItem -Path ./src -Recurse -Filter *.csproj | Select-Object -First 1
-          [xml]$xml = Get-Content $proj.FullName
-          $versionNode = $xml.Project.PropertyGroup.Version
-          if (-not $versionNode) {
-            $versionNode = $xml.CreateElement('Version')
-            $xml.Project.PropertyGroup.AppendChild($versionNode) | Out-Null
-            $versionNode.InnerText = '1.0.0'
-          }
-          $oldVersion = $versionNode.InnerText
-          $parts = $oldVersion -split '\.'
-          $major = [int]$parts[0]
-          $minor = [int]$parts[1]
-          $patch = [int]$parts[2] -replace '[^0-9]', ''
-          $patch = [int]$patch + 1
-          $newVersion = "$major.$minor.$patch"
-          if ($isDev) { $newVersion = "$newVersion-beta" }
-          $versionNode.InnerText = $newVersion
-          $xml.Save($proj.FullName)
-          echo "version=$newVersion" >> $GITHUB_OUTPUT
-
       - name: Restore dependencies
         run: dotnet restore dncytools.sln
+
+      - name: Set version suffix
+        id: versioning
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            echo "suffix=--version-suffix beta" >> $GITHUB_OUTPUT
+          else
+            echo "suffix=" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build
         run: dotnet build dncytools.sln --configuration Release
 
       - name: Pack
-        run: dotnet pack dncytools.sln --configuration Release --output ./nupkgs
+        run: dotnet pack dncytools.sln --configuration Release --output ./nupkgs ${{ steps.versioning.outputs.suffix }}
 
       - name: Publish to NuGet
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
