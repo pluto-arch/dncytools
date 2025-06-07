@@ -1,0 +1,44 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore dncytools.sln
+
+      - name: Set version suffix
+        id: versioning
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            echo "suffix=--version-suffix beta" >> $GITHUB_OUTPUT
+          else
+            echo "suffix=" >> $GITHUB_OUTPUT
+          fi
+      - name: Build
+        run: dotnet build dncytools.sln --configuration Release
+
+      - name: Pack
+        run: dotnet pack dncytools.sln --configuration Release --output ./nupkgs ${{ steps.versioning.outputs.suffix }}
+
+      - name: Publish to NuGet
+        if: github.ref == 'refs/heads/main'
+        run: |
+          for pkg in ./nupkgs/*.nupkg; do
+            dotnet nuget push "$pkg" --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+          done
