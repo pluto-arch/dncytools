@@ -54,8 +54,7 @@ jobs:
             -p:PackageVersion=${{ env.FULL_VERSION }} \
             --configuration Release \
             --output ./nupkgs \
-            --no-build \
-            --include-symbols
+            --no-build
 
       - name: Verify packages
         run: |
