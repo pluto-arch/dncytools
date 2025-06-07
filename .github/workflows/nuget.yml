@@ -3,17 +3,25 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'  # 匹配 1.0.0 这种格式的tag
-      - '[0-9]+.[0-9]+.[0-9]+-*'  # 匹配 1.0.0-rc1 这种格式的tag
+      - '[0-9]+.[0-9]+.[0-9]+'      # 匹配 1.0.0 这种格式的tag
+      - '[0-9]+.[0-9]+.[0-9]+-*'    # 匹配 1.0.0-rc1 这种格式的tag
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     env:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      NUGET_SOURCE: "https://api.nuget.org/v3/index.json"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 需要完整的git历史来检查tags
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
 
       - name: Extract and validate version
         id: version
@@ -21,53 +29,51 @@ jobs:
           # 从tag获取完整版本字符串
           FULL_VERSION=${GITHUB_REF#refs/tags/}
           
-          # 验证版本格式 (支持 1.0.0 和 1.0.0-rc.1)
-          if [[ ! "$FULL_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.-]+)?$ ]]; then
-            echo "::error::Invalid version format. Must be X.Y.Z or X.Y.Z-SUFFIX"
+          # 更严格的版本格式验证
+          if [[ ! "$FULL_VERSION" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-([a-zA-Z0-9]+(\.[0-9]+)?))?$ ]]; then
+            echo "::error::Invalid version format. Must be X.Y.Z or X.Y.Z-SUFFIX (e.g. 1.0.0 or 1.0.0-rc.1)"
             exit 1
           fi
           
-          # 分离主版本和预发布标识
-          if [[ "$FULL_VERSION" == *"-"* ]]; then
-            VERSION=${FULL_VERSION%%-*}
-            PRERELEASE=${FULL_VERSION#*-}
-            PRERELEASE_TAG="-$PRERELEASE"
-          else
-            VERSION=$FULL_VERSION
-            PRERELEASE_TAG=""
-          fi
-          
           echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "PRERELEASE_TAG=$PRERELEASE_TAG" >> $GITHUB_ENV
           echo "::set-output name=full_version::$FULL_VERSION"
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "8.0.x"
 
       - name: Restore dependencies
         run: dotnet restore dncytools.sln
 
-      - name: Set version suffix
-        id: versioning
-        run: |
-          if [[ "${GITHUB_REF}" == "refs/heads/tag" ]]; then
-            echo "suffix=--version-suffix beta" >> $GITHUB_OUTPUT
-          else
-            echo "suffix=" >> $GITHUB_OUTPUT
-          fi
-          
       - name: Build
-        run: dotnet build dncytools.sln --configuration Release
+        run: dotnet build dncytools.sln --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack dncytools.sln -p:Version=${{ env.VERSION }} -p:PackageVersion=${{ env.FULL_VERSION }} --configuration Release --output ./nupkgs
+        run: |
+          # 创建输出目录
+          mkdir -p ./nupkgs
+          # 打包所有项目
+          dotnet pack dncytools.sln \
+            -p:Version=${{ env.FULL_VERSION }} \
+            -p:PackageVersion=${{ env.FULL_VERSION }} \
+            --configuration Release \
+            --output ./nupkgs \
+            --no-build \
+            --include-symbols
+
+      - name: Verify packages
+        run: |
+          # 检查是否生成了nupkg文件
+          if [ -z "$(ls -A ./nupkgs/*.nupkg 2>/dev/null)" ]; then
+            echo "::error::No NuGet packages were created!"
+            exit 1
+          fi
+          
+          echo "Generated packages:"
+          ls -l ./nupkgs/*.nupkg
 
       - name: Publish to NuGet
-        if: github.ref == 'refs/heads/tag'
         run: |
           for pkg in ./nupkgs/*.nupkg; do
-            dotnet nuget push "$pkg" --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+            echo "Publishing $pkg"
+            dotnet nuget push "$pkg" \
+              --api-key "$NUGET_API_KEY" \
+              --source "$NUGET_SOURCE" \
+              --skip-duplicate
           done
