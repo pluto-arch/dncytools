@@ -53,11 +53,12 @@ jobs:
       - name: Set version suffix
         id: versioning
         run: |
-          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/tag" ]]; then
             echo "suffix=--version-suffix beta" >> $GITHUB_OUTPUT
           else
             echo "suffix=" >> $GITHUB_OUTPUT
           fi
+          
       - name: Build
         run: dotnet build dncytools.sln --configuration Release
 
