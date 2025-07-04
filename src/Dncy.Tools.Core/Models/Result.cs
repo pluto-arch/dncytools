@@ -114,7 +114,7 @@ namespace DotnetGeek.Tools
         {
             return new(e, false);
         }
-        public static Result Successe()
+        public static Result Success()
         {
             return new(default!, true);
         }
